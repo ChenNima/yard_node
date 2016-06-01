@@ -6,7 +6,6 @@
  */
 var hits = 0;
 exports.count = function(req, res){
-    alert("");
     res.send(200, {
         hits: hits
     });
