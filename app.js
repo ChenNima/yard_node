@@ -10,6 +10,8 @@ var users = require('./routes/users');
 
 var hits = require('./routes/hits');
 
+var sms = require('./routes/sms');
+
 var app = express();
 
 // view engine setup
@@ -30,6 +32,9 @@ app.use('/users', users);
 
 app.get('/hits', hits.count);
 app.post('/hit', hits.registerNew);
+
+app.get('/get_sms', sms.get);
+app.post('/add_sms', sms.addNew);
 
 
 // catch 404 and forward to error handler

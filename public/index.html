@@ -3,6 +3,9 @@
 <head>
     <title>Node app</title>
     <link rel="stylesheet" href="stylesheets/style.css">
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="angular/angular.min.js"></script>
     <script src="angular-route/angular-route.min.js"></script>
     <script src="restangular/dist/restangular.min.js"></script>
@@ -10,10 +13,19 @@
 </head>
 <body>
 <div ng-controller="HomeController">
-    <h3>Button hits: {{ hits }}</h3>
-    <button ng-click="registerHit()">
-        HIT ME, if you dare
+    <!--<h3>Button hits: {{ hits }}</h3>-->
+    <input type=”text” placeholder="姓名" ng-model="data.name">
+    <input type=”text” placeholder="内容" ng-model="data.content">
+    <button class="btn btn-primary" ng-click="smsTest()">
+        submit
     </button>
+    <table>
+    <tr ng-repeat="result in datas">
+        <td >{{result.data.date}}</td>
+        <td style="color:#00B7FF">{{result.data.name+"说"}}</td>
+        <td >{{result.data.content}}</td>
+    </tr>
+        </table>
 </div>
 <script src="javascripts/services.js"></script>
 <script src="javascripts/app.js"></script>

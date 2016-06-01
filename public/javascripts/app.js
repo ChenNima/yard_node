@@ -19,9 +19,9 @@ angular.module('myApp', [
         //    });
 
 
-        Restangular.one('/hits').get()
+        Restangular.one('/get_sms').get()
             .then(function (data){
-                $scope.hits = data.hits;
+                $scope.datas = data.smsArray;
             });
 
         $scope.registerHit = function() {
@@ -30,9 +30,21 @@ angular.module('myApp', [
                     $scope.hits = data.hits;
                 });
 
+
+
             //HitService.doHit()
             //    .then(function (data){
             //    $scope.hits = data;
             //});
         }
+
+                $scope.smsTest = function() {
+                    var myDate = new Date();
+                    var time = myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds();
+                    $scope.data.date = time;
+                    Restangular.one('/').post('add_sms', {data:$scope.data})
+                        .then(function (data) {
+                            $scope.datas = data.smsArray;
+                        });
+                }
     }]);
