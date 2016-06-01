@@ -21,7 +21,7 @@ angular.module('myApp', [
         setInterval(function(){
             Restangular.one('/get_sms').get()
                 .then(function (data){
-                    $scope.datas = data.smsArray;
+                    $scope.datas = data.smsArray.reverse();
                 });
         },1000);
 
@@ -45,7 +45,7 @@ angular.module('myApp', [
                     $scope.data.date = time;
                     Restangular.one('/').post('add_sms', {data:$scope.data})
                         .then(function (data) {
-                            $scope.datas = data.smsArray;
+                            $scope.datas = data.smsArray.reverse();
                             $scope.data.content="";
                         });
                 }
