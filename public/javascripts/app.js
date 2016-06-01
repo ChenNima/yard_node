@@ -46,6 +46,7 @@ angular.module('myApp', [
                     Restangular.one('/').post('add_sms', {data:$scope.data})
                         .then(function (data) {
                             $scope.datas = data.smsArray;
+                            $scope.data.content="";
                         });
                 }
     }]);
