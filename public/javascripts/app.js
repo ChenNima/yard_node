@@ -18,11 +18,12 @@ angular.module('myApp', [
         //        $scope.hits = data;
         //    });
 
-
-        Restangular.one('/get_sms').get()
-            .then(function (data){
-                $scope.datas = data.smsArray;
-            });
+        setInterval(function(){
+            Restangular.one('/get_sms').get()
+                .then(function (data){
+                    $scope.datas = data.smsArray;
+                });
+        },1000);
 
         $scope.registerHit = function() {
             Restangular.one('/hit').post()
