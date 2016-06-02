@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <title>陈先森的院子</title>
+</head>
+<body>
+<div ng-controller="ChatCtrl">
+    <form name="chatForm" role="form" class="form-horizontal" ng-submit="smsTest()">
+        <div class="form-group">
+            <span>{{"欢迎!"+data.name}}</span>
+            <a ng-click="logout()">登出</a>
+            <input required type=”text” placeholder="内容" ng-model="data.content">
+            <input class="btn btn-primary" type="submit" value="提交" ng-disabled="chatForm.$invalid">
+            </input>
+        </div>
+    </form>
+    <table>
+        <tr ng-repeat="result in datas">
+            <td>{{result.data.date}}</td>
+            <td style="color:#00B7FF">{{result.data.name}}</td>
+            <td>{{"说:"+result.data.content}}</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

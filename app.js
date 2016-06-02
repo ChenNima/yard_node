@@ -6,9 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
-
-var hits = require('./routes/hits');
 
 var sms = require('./routes/sms');
 
@@ -28,10 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
 //app.use('/', routes);
-app.use('/users', users);
-
-app.get('/hits', hits.count);
-app.post('/hit', hits.registerNew);
 
 app.get('/get_sms', sms.get);
 app.post('/add_sms', sms.addNew);

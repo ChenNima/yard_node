@@ -1,0 +1,13 @@
+<!doctype html>
+<body>
+<div ng-controller="LoginController">
+    <!--<h3>Button hits: {{ hits }}</h3>-->
+    <form name="chatForm" role="form" class="form-horizontal" ng-submit="doLogin()">
+        <div class="form-group">
+            <input required type=”text” placeholder="姓名" ng-model="username">
+            <input class="btn btn-primary" type="submit" value="进入聊天室"  ng-href="#!/chat"ng-disabled="chatForm.$invalid">
+        </div>
+    </form>
+</div>
+</body>
+</html>
