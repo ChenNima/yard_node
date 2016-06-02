@@ -17,7 +17,6 @@ lib/assets/bower_components
 coverage/
 .metrics
 node_modules
-bower_components
 public/assets/
 features/cucumber_report.xml
 features/report.json
