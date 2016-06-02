@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var db = require('./db/db');
+
+
 var routes = require('./routes/index');
 
 var sms = require('./routes/sms');
@@ -25,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
 //app.use('/', routes);
+
+db.connect();
 
 app.get('/get_sms', sms.get);
 app.post('/add_sms', sms.addNew);
