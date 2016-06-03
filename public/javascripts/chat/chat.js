@@ -11,6 +11,8 @@ angular.module('myApp')
 
                 var sendData;
 
+                var refreshFlag = false;
+
                 if (!$cookieStore.get("chatname")) {
                     $location.path('/login');
                     $location.replace();
@@ -23,9 +25,14 @@ angular.module('myApp')
                 }, 1000);
 
                 var refresh = function () {
+                    if(refreshFlag){
+                        return;
+                    }
+                    refreshFlag = true;
                     Restangular.one('/get_sms').get()
                         .then(function (data) {
                             $scope.datas = data.smsArray.reverse();
+                            refreshFlag = false;
                         });
                 };
 

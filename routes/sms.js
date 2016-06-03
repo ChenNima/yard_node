@@ -10,17 +10,16 @@ var chatLogSchema = new mongoose.Schema({
 });
 var chatLog = mongoose.model('chat_log', chatLogSchema);
 
-//var test = new chatLog({
-//    name: "testName",
-//    content:"testContent"
-//});
-
-//test.save(function (err, test) {
-//    if (err) return console.error(err);
-//
-//});
-
 var smsArray = [];
+
+chatLog.find(function (err, logs) {
+    if (err) return console.error(err);
+    for (var index in logs){
+        smsArray.push({data:logs[index]._doc});
+    }
+});
+
+
 
 exports.get = function(req, res){
     res.send(200, {
@@ -28,11 +27,7 @@ exports.get = function(req, res){
     });
 };
 exports.addNew = function(req, res) {
-    var new_log = new chatLog({
-        name: req.body.data.name,
-        content:req.body.data.content,
-        date:req.body.data.date
-    });
+    var new_log = new chatLog(req.body.data);
 
     new_log.save(function (err, test) {
         if (err) return console.error(err);
