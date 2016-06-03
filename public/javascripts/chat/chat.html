@@ -15,7 +15,7 @@
         <tr ng-repeat="result in datas" ng-class="{'other-line':data.name!=names[$index]}">
             <td>{{result.data.date}}</td>
             <td style="color:#00B7FF">{{result.data.name}}</td>
-            <td>{{"说:"+result.data.content}}</td>
+            <td>{{result.data.name!=""?"说:"+result.data.content:"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+result.data.content}}</td>
         </tr>
     </table>
 </div>
