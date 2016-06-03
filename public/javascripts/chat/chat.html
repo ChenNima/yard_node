@@ -2,6 +2,13 @@
 <html lang="en" ng-app="myApp">
 <body>
 <div ng-controller="ChatCtrl">
+    <table class="chat-table">
+        <tr ng-repeat="result in datas" ng-class="{'other-line':data.name!=names[$index]}">
+            <td>{{result.data.date}}</td>
+            <td style="color:#00B7FF">{{result.data.name}}</td>
+            <td>{{"&nbsp;&nbsp;"+result.data.content}}</td>
+        </tr>
+    </table>
     <form name="chatForm" role="form" class="form-horizontal" ng-submit="smsTest()">
         <div class="form-group">
             <span>{{"欢迎!"+data.name}}</span>
@@ -11,13 +18,6 @@
             </input>
         </div>
     </form>
-    <table class="chat-table">
-        <tr ng-repeat="result in datas" ng-class="{'other-line':data.name!=names[$index]}">
-            <td>{{result.data.date}}</td>
-            <td style="color:#00B7FF">{{result.data.name}}</td>
-            <td>{{result.data.name!=""?"说:"+result.data.content:"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+result.data.content}}</td>
-        </tr>
-    </table>
 </div>
 </body>
 </html>

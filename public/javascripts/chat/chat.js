@@ -31,7 +31,7 @@ angular.module('myApp')
                     refreshFlag = true;
                     Restangular.one('/get_sms').get()
                         .then(function (data) {
-                            var temp = data.smsArray.reverse();
+                            var temp = data.smsArray;
                             $scope.names = [];
                             for (var line=0;line<temp.length;line++){
                                 var tempName = temp[line].data.name;
