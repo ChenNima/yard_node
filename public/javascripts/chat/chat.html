@@ -3,10 +3,12 @@
 <body>
 <div ng-controller="ChatCtrl">
     <table class="chat-table">
-        <tr ng-repeat="result in datas" ng-class="{'other-line':data.name!=names[$index]}">
-            <td>{{result.data.date}}</td>
-            <td style="color:#00B7FF">{{result.data.name}}</td>
-            <td>{{"&nbsp;&nbsp;"+result.data.content}}</td>
+        <tr ng-repeat="result in datas" >
+            <td>{{data.name!=names[$index]?result.data.date:""}}</td>
+            <td style="color:#00B7FF">{{data.name!=names[$index]?result.data.name:""}}</td>
+            <td ng-class="{'other-line':data.name!=names[$index]}">{{"&nbsp;&nbsp;"+result.data.content}}</td>
+            <td style="color:#ff8514" ng-show="data.name==names[$index]">{{result.data.name}}</td>
+            <td ng-show="data.name==names[$index]">{{result.data.date}}</td>
         </tr>
     </table>
     <form name="chatForm" role="form" class="form-horizontal" ng-submit="smsTest()">
