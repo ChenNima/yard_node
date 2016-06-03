@@ -19,7 +19,7 @@ angular.module('myApp')
                 }
                 $scope.data={};
                 $scope.data.name = $cookieStore.get("chatname");
-
+                $scope.names = [];
                 setInterval(function () {
                     refresh();
                 }, 1000);
@@ -31,7 +31,26 @@ angular.module('myApp')
                     refreshFlag = true;
                     Restangular.one('/get_sms').get()
                         .then(function (data) {
-                            $scope.datas = data.smsArray.reverse();
+                            var temp = data.smsArray.reverse();
+                            $scope.protoDatas = new Array(data.smsArray);
+                            for (var line=0;line<temp.length;line++){
+                                var tempName = temp[line].data.name;
+                                $scope.names.push(temp[line].data.name);
+                                for(line-=-1;;line++ ){
+                                    if (line == temp.length){
+                                        break;
+                                    }
+                                    if(temp[line].data.name==tempName){
+                                        $scope.names.push(temp[line].data.name);
+                                        temp[line].data.name="";
+                                        temp[line].data.date="";
+                                    }else{
+                                        line-=1;
+                                        break;
+                                    }
+                                }
+                            }
+                            $scope.datas = temp;
                             refreshFlag = false;
                         });
                 };

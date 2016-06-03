@@ -12,7 +12,7 @@
         </div>
     </form>
     <table class="chat-table">
-        <tr ng-repeat="result in datas" ng-class="{'other-line':data.name!=result.data.name}">
+        <tr ng-repeat="result in datas" ng-class="{'other-line':data.name!=names[$index]}">
             <td>{{result.data.date}}</td>
             <td style="color:#00B7FF">{{result.data.name}}</td>
             <td>{{"说:"+result.data.content}}</td>
