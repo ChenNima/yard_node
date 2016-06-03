@@ -69,9 +69,7 @@ exports.addNew = function(req, res) {
         console.log(test.name+"saved");
     });
     smsArray.push(req.body);
-    refresh(function(){
-        res.send(200, {
-            smsArray: smsArray
-        });
+    res.send(200, {
+
     });
 };

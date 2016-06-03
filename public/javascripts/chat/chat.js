@@ -32,7 +32,7 @@ angular.module('myApp')
                     Restangular.one('/get_sms').get()
                         .then(function (data) {
                             var temp = data.smsArray.reverse();
-                            $scope.protoDatas = new Array(data.smsArray);
+                            $scope.names = [];
                             for (var line=0;line<temp.length;line++){
                                 var tempName = temp[line].data.name;
                                 $scope.names.push(temp[line].data.name);
@@ -71,7 +71,7 @@ angular.module('myApp')
                     $scope.data.content = "";
                     Restangular.one('/').post('add_sms', {data: sendData})
                         .then(function (data) {
-                            $scope.datas = data.smsArray.reverse();
+
                         });
                 };
 
