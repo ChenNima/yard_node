@@ -22,7 +22,7 @@ angular.module('myApp')
                 $scope.names = [];
                 setInterval(function () {
                     refresh();
-                }, 1000);
+                }, 2000);
 
                 var refresh = function () {
                     if(refreshFlag){
@@ -31,6 +31,9 @@ angular.module('myApp')
                     refreshFlag = true;
                     Restangular.one('/get_sms').get()
                         .then(function (data) {
+                            if($scope.datas && _.last(data.smsArray).data._id==_.last($scope.datas).data._id){
+                                //return;
+                            }
                             var temp = data.smsArray;
                             $scope.names = [];
                             for (var line=0;line<temp.length;line++){
@@ -71,7 +74,7 @@ angular.module('myApp')
                     $scope.data.content = "";
                     Restangular.one('/').post('add_sms', {data: sendData})
                         .then(function (data) {
-
+                            refresh();
                         });
                 };
 

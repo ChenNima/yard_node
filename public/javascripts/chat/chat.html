@@ -1,7 +1,4 @@
-<!doctype html>
-<html lang="en" ng-app="myApp">
-<body>
-<div ng-controller="ChatCtrl">
+<div>
     <table class="chat-table">
         <tr ng-repeat="result in datas" >
             <td>{{data.name!=names[$index]?result.data.date:""}}</td>
@@ -21,5 +18,3 @@
         </div>
     </form>
 </div>
-</body>
-</html>

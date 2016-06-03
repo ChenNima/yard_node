@@ -10,7 +10,7 @@ angular.module('myApp')
                 if ($cookieStore.get("chatname")) {
                     $scope.username = $cookieStore.get("chatname");
                     $location.path('/chat');
-                    $location.replace();
+                    //$location.replace();
                 }
 
                 $scope.doLogin = function () {
