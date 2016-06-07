@@ -34,28 +34,32 @@ angular.module('myApp')
                             //if($scope.datas && _.last(data.smsArray).data._id==_.last($scope.datas).data._id){
                             //    //return;
                             //}
-                            var temp = data;
-                            $scope.names = [];
-                            for (var line=0;line<temp.length;line++){
-                                var tempName = temp[line].name;
-                                $scope.names.push(temp[line].name);
-                                for(line-=-1;;line++ ){
-                                    if (line == temp.length){
-                                        break;
-                                    }
-                                    if(temp[line].name==tempName){
-                                        $scope.names.push(temp[line].name);
-                                        temp[line].name="";
-                                        temp[line].date="";
-                                    }else{
-                                        line-=1;
-                                        break;
-                                    }
-                                }
-                            }
-                            $scope.datas = temp;
-                            refreshFlag = false;
+                            dataFormat(data);
                         });
+                };
+
+                var dataFormat = function (data) {
+                    var temp = data;
+                    $scope.names = [];
+                    for (var line=0;line<temp.length;line++){
+                        var tempName = temp[line].name;
+                        $scope.names.push(temp[line].name);
+                        for(line-=-1;;line++ ){
+                            if (line == temp.length){
+                                break;
+                            }
+                            if(temp[line].name==tempName){
+                                $scope.names.push(temp[line].name);
+                                temp[line].name="";
+                                temp[line].date="";
+                            }else{
+                                line-=1;
+                                break;
+                            }
+                        }
+                    }
+                    $scope.datas = temp;
+                    refreshFlag = false;
                 };
 
                 var deepCopy = function (source) {
@@ -74,7 +78,7 @@ angular.module('myApp')
                     $scope.data.content = "";
                     Restangular.one('/').post('add_sms', sendData)
                         .then(function (data) {
-                            refresh();
+                            dataFormat(data);
                         });
                 };
 
