@@ -31,22 +31,22 @@ angular.module('myApp')
                     refreshFlag = true;
                     Restangular.one('/get_sms').get()
                         .then(function (data) {
-                            if($scope.datas && _.last(data.smsArray).data._id==_.last($scope.datas).data._id){
-                                //return;
-                            }
-                            var temp = data.smsArray;
+                            //if($scope.datas && _.last(data.smsArray).data._id==_.last($scope.datas).data._id){
+                            //    //return;
+                            //}
+                            var temp = data;
                             $scope.names = [];
                             for (var line=0;line<temp.length;line++){
-                                var tempName = temp[line].data.name;
-                                $scope.names.push(temp[line].data.name);
+                                var tempName = temp[line].name;
+                                $scope.names.push(temp[line].name);
                                 for(line-=-1;;line++ ){
                                     if (line == temp.length){
                                         break;
                                     }
-                                    if(temp[line].data.name==tempName){
-                                        $scope.names.push(temp[line].data.name);
-                                        temp[line].data.name="";
-                                        temp[line].data.date="";
+                                    if(temp[line].name==tempName){
+                                        $scope.names.push(temp[line].name);
+                                        temp[line].name="";
+                                        temp[line].date="";
                                     }else{
                                         line-=1;
                                         break;
@@ -72,7 +72,7 @@ angular.module('myApp')
                     $scope.data.date = time;
                     sendData = deepCopy($scope.data);
                     $scope.data.content = "";
-                    Restangular.one('/').post('add_sms', {data: sendData})
+                    Restangular.one('/').post('add_sms', sendData)
                         .then(function (data) {
                             refresh();
                         });

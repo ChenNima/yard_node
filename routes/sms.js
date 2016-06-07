@@ -35,7 +35,7 @@ var refresh = function(callback){
                 if (err) return console.error(err);
                 smsArray = [];
                 for (var index in logs){
-                    smsArray.push({data:logs[index]._doc});
+                    smsArray.push(logs[index]._doc);
                 }
                 if(callback){
                     callback();
@@ -56,19 +56,17 @@ refresh();
 
 exports.get = function(req, res){
     refresh(function(){
-        res.send(200, {
-            smsArray: smsArray
-        });
+        res.send(200, smsArray);
     });
 };
 exports.addNew = function(req, res) {
-    var new_log = new chatLog(req.body.data);
+    var new_log = new chatLog(req.body);
 
     new_log.save(function (err, test) {
         if (err) return console.error(err);
         console.log(test.name+"saved");
     });
-    smsArray.push(req.body);
+    //smsArray.push(req.body);
     res.send(200, {
 
     });
