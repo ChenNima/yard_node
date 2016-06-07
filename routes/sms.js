@@ -65,7 +65,9 @@ exports.addNew = function(req, res) {
     new_log.save(function (err, test) {
         if (err) return console.error(err);
         console.log(test.name+"saved");
+        refresh(function(){
+            res.send(200, smsArray);
+        });
     });
     //smsArray.push(req.body);
-    res.send(200, "Success!");
 };
