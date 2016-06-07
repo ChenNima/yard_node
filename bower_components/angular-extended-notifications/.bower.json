@@ -1,0 +1,57 @@
+{
+  "name": "angular-extended-notifications",
+  "version": "1.0.5",
+  "authors": [
+    "L.systems SARL",
+    "Etienne Folio <etienne.folio@lsystems.fr>",
+    "Quentin Raynaud <quentin.raynaud@lsystems.fr>"
+  ],
+  "description": "Highly customizable notifications with AngularJS",
+  "keywords": [
+    "angular",
+    "notifications",
+    "notification",
+    "notify",
+    "notif",
+    "angularjs",
+    "ng",
+    "extended",
+    "extend",
+    "alert",
+    "util",
+    "utils",
+    "service",
+    "banner",
+    "template"
+  ],
+  "main": "angular-extended-notifications.js",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/lsystems/angular-extended-notifications",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/lsystems/angular-extended-notifications"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.22"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.22"
+  },
+  "_release": "1.0.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.5",
+    "commit": "9f8e8d1acf0ffe2136bce62cf9fdc677c13d88d5"
+  },
+  "_source": "https://bitbucket.org/lsystems/angular-extended-notifications.git",
+  "_target": "1.0.5",
+  "_originalSource": "angular-extended-notifications"
+}

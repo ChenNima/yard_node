@@ -7,11 +7,13 @@ angular.module('myApp')
             'Restangular',
             '$cookieStore',
             '$location',
-            function ($scope, Restangular,$cookieStore,$location) {
+            'webNotification',
+            function ($scope, Restangular,$cookieStore,$location,webNotification) {
 
                 var sendData;
 
-                var refreshFlag = false;
+                var getFlag = false;
+
 
                 if (!$cookieStore.get("chatname")) {
                     $location.path('/login');
@@ -25,16 +27,19 @@ angular.module('myApp')
                 }, 2000);
 
                 var refresh = function () {
-                    if(refreshFlag){
+                    if (getFlag){
                         return;
                     }
-                    refreshFlag = true;
+                    getFlag = true;
                     Restangular.one('/get_sms').get()
                         .then(function (data) {
-                            //if($scope.datas && _.last(data.smsArray).data._id==_.last($scope.datas).data._id){
-                            //    //return;
-                            //}
-                            dataFormat(data);
+                            if ($scope.datas &&  _.last(data)._id!=_.last($scope.datas)._id && _.last(data).name != $scope.data.name){
+                                showNotify(_.last(data).name+": "+_.last(data).content);
+                            }
+                            if(!$scope.datas || _.last(data)._id!=_.last($scope.datas)._id){
+                                dataFormat(data);
+                            }
+                            getFlag = false;
                         });
                 };
 
@@ -59,7 +64,28 @@ angular.module('myApp')
                         }
                     }
                     $scope.datas = temp;
-                    refreshFlag = false;
+                };
+
+                var showNotify = function (body) {
+                    webNotification.showNotification('陈先森的院子有新消息!', {
+                        body: body,
+                        icon: 'my-icon.ico',
+                        onClick: function onNotificationClicked() {
+                            console.log('Notification clicked.');
+                        },
+                        autoClose: 4000 //auto close the notification after 4 seconds (you can manually close it via hide function)
+                    }, function onShow(error, hide) {
+                        if (error) {
+                            window.alert('Unable to show notification: ' + error.message);
+                        } else {
+                            console.log('Notification Shown.');
+
+                            setTimeout(function hideNotification() {
+                                console.log('Hiding notification....');
+                                hide(); //manually close the notification (you can skip this if you use the autoClose option)
+                            }, 5000);
+                        }
+                    });
                 };
 
                 var deepCopy = function (source) {

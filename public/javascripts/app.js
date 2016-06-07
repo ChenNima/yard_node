@@ -7,20 +7,21 @@ angular.module('myApp', [
     'ngRoute',
     'myApp.services',
     'restangular',
-    'ngCookies'
+    'ngCookies',
+    'angular-web-notification'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
-        $locationProvider.hashPrefix('!');
+    $locationProvider.hashPrefix('!');
 
-        $routeProvider
-            .when('/', {
-                redirectTo: 'login'
-            })
-            .when('/chat', {
-                templateUrl: 'javascripts/chat/chat.html',
-                controller: 'ChatCtrl'
-            })
-            .when('/login', {
-                templateUrl: 'javascripts/login/login.html',
-                controller: 'LoginController'
-            })
-    }]);
+    $routeProvider
+        .when('/', {
+            redirectTo: 'login'
+        })
+        .when('/chat', {
+            templateUrl: 'javascripts/chat/chat.html',
+            controller: 'ChatCtrl'
+        })
+        .when('/login', {
+            templateUrl: 'javascripts/login/login.html',
+            controller: 'LoginController'
+        })
+}]);
