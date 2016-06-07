@@ -67,7 +67,5 @@ exports.addNew = function(req, res) {
         console.log(test.name+"saved");
     });
     //smsArray.push(req.body);
-    res.send(200, {
-
-    });
+    res.send(200, "Success!");
 };
