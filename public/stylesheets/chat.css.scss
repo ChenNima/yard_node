@@ -1,4 +1,5 @@
 .chat-table {
+  margin: auto;
 
   td {
     padding: 3px 0 3px 5px;
@@ -6,10 +7,13 @@
 
   .other-line {
     background-color: #cbfcb8;
+    max-width: 450px;
+    text-align:left;
   }
 
   .chat-line{
-    width: 600px;
+    max-width: 450px;
+    text-align:right;
   }
 
 }

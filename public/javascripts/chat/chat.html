@@ -3,7 +3,7 @@
         <tr ng-repeat="result in datas" >
             <td>{{data.name!=names[$index]?result.date:""}}</td>
             <td style="color:#00B7FF">{{data.name!=names[$index]?result.name:""}}</td>
-            <td ng-class="{'other-line':data.name!=names[$index],'chat-line':true}">{{"&nbsp;&nbsp;"+result.content}}</td>
+            <td ng-class="{'other-line':data.name!=names[$index],'chat-line':data.name==names[$index]}">{{"&nbsp;&nbsp;"+result.content}}</td>
             <td style="color:#ff8514" ng-show="data.name==names[$index]">{{result.name}}</td>
             <td ng-show="data.name==names[$index]">{{result.date}}</td>
         </tr>

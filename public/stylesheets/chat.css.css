@@ -1,8 +1,13 @@
-.chat-table td {
-  padding: 3px 0 3px 5px; }
-.chat-table .other-line {
-  background-color: #cbfcb8; }
-.chat-table .chat-line {
-  width: 600px; }
+.chat-table {
+  margin: auto; }
+  .chat-table td {
+    padding: 3px 0 3px 5px; }
+  .chat-table .other-line {
+    background-color: #cbfcb8;
+    max-width: 450px;
+    text-align: left; }
+  .chat-table .chat-line {
+    max-width: 450px;
+    text-align: right; }
 
 /*# sourceMappingURL=chat.css.css.map */
