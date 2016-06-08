@@ -30,22 +30,7 @@ angular.module('myApp.services', [])
                 return d.promise;
 
             },
-            test: function (){
-                Restangular.one('hits').get()
-                    .then(function (data){
-                    return data.hits;
-                });
 
-            },
-            doHit : function(){
-                Restangular.one('/hit').post()
-                    .then(function ( data){
-                        return data.hits;
-                    })
-            }
-
-
-
-        }
+        };
         return service;
     }]);

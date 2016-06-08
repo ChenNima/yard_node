@@ -69,7 +69,7 @@ angular.module('myApp')
                 var showNotify = function (body) {
                     webNotification.showNotification('陈先森的院子有新消息!', {
                         body: body,
-                        icon: 'my-icon.ico',
+                        icon: 'favicon.ico',
                         onClick: function onNotificationClicked() {
                             console.log('Notification clicked.');
                         },
