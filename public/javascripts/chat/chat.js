@@ -20,8 +20,8 @@ angular.module('myApp')
                     $location.replace();
                 }
                 $scope.data={};
+                $scope.toSend=[];
                 $scope.data.name = $cookieStore.get("chatname");
-                $scope.names = [];
                 setInterval(function () {
                     refresh();
                 }, 2000);
@@ -33,6 +33,9 @@ angular.module('myApp')
                     getFlag = true;
                     Restangular.one('/get_sms').get()
                         .then(function (data) {
+                            if($scope.datas && !_.last($scope.datas)._id ){
+                                $scope.datas.splice($scope.datas.length-1,1);
+                            }
                             if ($scope.datas &&  _.last(data)._id!=_.last($scope.datas)._id && _.last(data).name != $scope.data.name){
                                 showNotify(_.last(data).name+": "+_.last(data).content);
                             }
@@ -45,18 +48,14 @@ angular.module('myApp')
 
                 var dataFormat = function (data) {
                     var temp = data;
-                    $scope.names = [];
                     for (var line=0;line<temp.length;line++){
                         var tempName = temp[line].name;
-                        $scope.names.push(temp[line].name);
                         for(line-=-1;;line++ ){
                             if (line == temp.length){
                                 break;
                             }
                             if(temp[line].name==tempName){
-                                $scope.names.push(temp[line].name);
-                                temp[line].name="";
-                                temp[line].date="";
+                                temp[line].hide = true;
                             }else{
                                 line-=1;
                                 break;
@@ -102,8 +101,11 @@ angular.module('myApp')
                     $scope.data.date = time;
                     sendData = deepCopy($scope.data);
                     $scope.data.content = "";
+                    $scope.toSend.push(sendData);
+                    $scope.datas.splice(0,1);
                     Restangular.one('/').post('add_sms', sendData)
                         .then(function (data) {
+                            $scope.toSend.splice(0,1);
                             dataFormat(data);
                         });
                 };

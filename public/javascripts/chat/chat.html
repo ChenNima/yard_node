@@ -1,11 +1,23 @@
 <div>
     <table class="chat-table">
         <tr ng-repeat="result in datas" >
-            <td>{{data.name!=names[$index]?result.date:""}}</td>
-            <td style="color:#00B7FF">{{data.name!=names[$index]?result.name:""}}</td>
-            <td ng-class="{'other-line':data.name!=names[$index],'chat-line':data.name==names[$index]}">{{"&nbsp;&nbsp;"+result.content}}</td>
-            <td style="color:#ff8514" ng-show="data.name==names[$index]">{{result.name}}</td>
-            <td ng-show="data.name==names[$index]">{{result.date}}</td>
+            <td>{{data.name!=result.name?result.date:""}}</td>
+            <td style="color:#00B7FF">{{data.name!=result.name?result.name:""}}</td>
+            <td ng-class="{'other-line':data.name!=result.name,'chat-line':data.name==result.name}">
+                {{"&nbsp;&nbsp;"+result.content}}
+            </td>
+            <td style="color:#ff8514" ng-show="data.name==result.name">{{result.hide?"":result.name}}</td>
+            <td ng-show="data.name==result.name">{{result.hide?"":result.date}}</td>
+        </tr>
+        <tr ng-repeat="result in toSend" >
+            <td>{{""}}</td>
+            <td>{{""}}</td>
+            <td class="chat-line">
+                <span class="glyphicon glyphicon-share-alt"></span>
+                {{"&nbsp;&nbsp;"+result.content}}
+            </td>
+            <td style="color:rgba(42, 107, 52, 0.84)">发送中...</td>
+            <td>{{result.date}}</td>
         </tr>
     </table>
     <form name="chatForm" role="form" class="form-horizontal" ng-submit="smsTest()">
