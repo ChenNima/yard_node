@@ -1,8 +1,8 @@
 <div>
     <table class="chat-table">
         <tr ng-repeat="result in datas" >
-            <td>{{data.name!=result.name?result.date:""}}</td>
-            <td style="color:#00B7FF">{{data.name!=result.name?result.name:""}}</td>
+            <td>{{data.name==result.name||result.hide?"":result.date}}</td>
+            <td style="color:#00B7FF">{{data.name==result.name||result.hide?"":result.name}}</td>
             <td ng-class="{'other-line':data.name!=result.name,'chat-line':data.name==result.name}">
                 {{"&nbsp;&nbsp;"+result.content}}
             </td>
