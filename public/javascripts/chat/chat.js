@@ -103,6 +103,7 @@ angular.module('myApp')
                     $scope.data.content = "";
                     $scope.toSend.push(sendData);
                     $scope.datas.splice(0,1);
+                    $scope.datas[0].hide = false;
                     Restangular.one('/').post('add_sms', sendData)
                         .then(function (data) {
                             $scope.toSend.splice(0,1);
