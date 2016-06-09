@@ -4,7 +4,7 @@
             <td>{{data.name==result.name||result.hide?"":result.date}}</td>
             <td style="color:#00B7FF">{{data.name==result.name||result.hide?"":result.name}}</td>
             <td ng-class="{'other-line':data.name!=result.name,'chat-line':data.name==result.name}">
-                {{"&nbsp;&nbsp;"+result.content}}
+                {{"&nbsp;&nbsp;"+result.content+"&nbsp;&nbsp;"}}
             </td>
             <td style="color:#ff8514" ng-show="data.name==result.name">{{result.hide?"":result.name}}</td>
             <td ng-show="data.name==result.name">{{result.hide?"":result.date}}</td>
