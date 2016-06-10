@@ -22,7 +22,7 @@ angular.module('myApp')
                 $scope.data={};
                 $scope.toSend=[];
                 $scope.data.name = $cookieStore.get("chatname");
-                setInterval(function () {
+                var interval = setInterval(function () {
                     refresh();
                 }, 2000);
 
@@ -33,9 +33,6 @@ angular.module('myApp')
                     getFlag = true;
                     Restangular.one('/get_sms').get()
                         .then(function (data) {
-                            if($scope.datas && !_.last($scope.datas)._id ){
-                                $scope.datas.splice($scope.datas.length-1,1);
-                            }
                             if ($scope.datas &&  _.last(data)._id!=_.last($scope.datas)._id && _.last(data).name != $scope.data.name){
                                 showNotify(_.last(data).name+": "+_.last(data).content);
                             }
@@ -116,6 +113,12 @@ angular.module('myApp')
                     $location.path('/login');
                     $location.replace();
                 };
+
+                $scope.$on('$locationChangeStart', function (event, next, current) {
+                        clearInterval(interval);
+                }
+                );
+
 
                 refresh();
             }]);
