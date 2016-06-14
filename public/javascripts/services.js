@@ -18,7 +18,7 @@ angular.module('myApp.services', [])
             },
 
             getUserData : function(){
-                return localUser.nickName?localUser:null;
+                return localUser;
             },
 
             clearUserData : function(){

@@ -17,7 +17,7 @@ angular.module('myApp')
 
                 var user = LoginService.getUserData();
 
-                if (!user) {
+                if (_.isEmpty(user)) {
                     $location.path('/login');
                 }
                 $scope.data={};
@@ -107,11 +107,6 @@ angular.module('myApp')
                             $scope.toSend.splice(0,1);
                             dataFormat(data);
                         });
-                };
-
-                $scope.logout =function(){
-                    LoginService.clearUserData();
-                    $location.path('/login');
                 };
 
                 $scope.$on('$locationChangeStart', function (event, next, current) {

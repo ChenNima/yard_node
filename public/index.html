@@ -4,33 +4,37 @@
     <title>陈先森的院子</title>
     <link rel=”icon” href="/public/images/favicon.ico" type=”image/x-icon”>
 </head>
-<body>
-<nav class="navbar navbar-default" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="/#!/">陈先森的院子</a>
-    </div>
-    <div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/#!/login">登录</a></li>
-            <!--<li><a href="#">SVN</a></li>-->
-            <!--<li class="dropdown">-->
+<body  ng-controller="HomeController">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/#!/">陈先森的院子</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-show="!logStatus"><a href="/#!/login">登录</a></li>
+                <li ng-show="!logStatus"><a href="/#!/register">注册</a></li>
+                <li ng-show="logStatus"><a>{{"欢迎！"+user.nickName}}</a></li>
+                <li ng-show="logStatus"><a ng-click="logout()">登出</a></li>
+                <li><a ></a></li>
+                <!--<li><a href="#">SVN</a></li>-->
+                <!--<li class="dropdown">-->
                 <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
-                    <!--Java-->
-                    <!--<b class="caret"></b>-->
+                <!--Java-->
+                <!--<b class="caret"></b>-->
                 <!--</a>-->
                 <!--<ul class="dropdown-menu">-->
-                    <!--<li><a href="#">jmeter</a></li>-->
-                    <!--<li><a href="#">EJB</a></li>-->
-                    <!--<li><a href="#">Jasper Report</a></li>-->
-                    <!--<li class="divider"></li>-->
-                    <!--<li><a href="#">分离的链接</a></li>-->
-                    <!--<li class="divider"></li>-->
-                    <!--<li><a href="#">另一个分离的链接</a></li>-->
+                <!--<li><a href="#">jmeter</a></li>-->
+                <!--<li><a href="#">EJB</a></li>-->
+                <!--<li><a href="#">Jasper Report</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a href="#">分离的链接</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a href="#">另一个分离的链接</a></li>-->
                 <!--</ul>-->
-            <!--</li>-->
-        </ul>
-    </div>
-</nav>
+                <!--</li>-->
+            </ul>
+        </div>
+    </nav>
 <div>
     <div class="main-div" ng-view></div>
 </div>
@@ -57,6 +61,7 @@
 <script type="text/javascript" src="angular-web-notification/angular-web-notification.js"></script>
 <script src="javascripts/services.js"></script>
 <script src="javascripts/app.js"></script>
+<script src="javascripts/home-crtl.js"></script>
 <script src="javascripts/login/login-crtl.js"></script>
 <script src="javascripts/login/register-crtl.js"></script>
 <script src="javascripts/chat/chat.js"></script>

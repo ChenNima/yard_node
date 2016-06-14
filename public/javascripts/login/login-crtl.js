@@ -10,12 +10,9 @@ angular.module('myApp')
             'LoginService',
             function ($scope,Restangular,$cookies,$location,LoginService) {
 
-                LoginService.refresh();
                 var user = LoginService.getUserData();
 
-                if (user) {
-                    //alert($cookies.getObject("user").name);
-                    //$scope.username = $cookies.get("chatname");
+                if (!_.isEmpty(user)) {
                     $location.path('/chat');
                 }
 
@@ -28,6 +25,7 @@ angular.module('myApp')
                             data.reqParams="";
                             $cookies.putObject('user', data, {'expires': expireDate.toUTCString()});
                             LoginService.saveUserData(data);
+                            $scope.$emit("loginStatusChange", true);
                             $location.path('/chat');
                         },function(err){
                            alert(err.data.message);
