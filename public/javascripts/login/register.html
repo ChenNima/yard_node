@@ -1,0 +1,18 @@
+<div>
+    <!--<h3>Button hits: {{ hits }}</h3>-->
+    <form name="registerForm" role="form" class="form-horizontal" ng-submit="doRegister()">
+        <div class="form-group">
+            <input required ng-minlength="6" type="text" placeholder="账号" ng-model="user.name">
+        </div>
+        <div class="form-group">
+            <input required type="text" placeholder="昵称" ng-model="user.nick_name">
+        </div>
+        <div class="form-group">
+            <input required ng-minlength="6" type="password" placeholder="密码" ng-model="user.pass">
+        </div>
+        <div class="form-group">
+            <input required ng-minlength="6" type="password" placeholder="重复密码" ng-model="repass">
+        </div>
+        <input class="btn btn-primary" type="submit" value="注册" ng-disabled="registerForm.$invalid">
+    </form>
+</div>

@@ -2,8 +2,12 @@
     <!--<h3>Button hits: {{ hits }}</h3>-->
     <form name="chatForm" role="form" class="form-horizontal" ng-submit="doLogin()">
         <div class="form-group">
-            <input required type=”text” placeholder="姓名" ng-model="username">
-            <input class="btn btn-primary" type="submit" value="进入聊天室"  ng-href="#!/chat"ng-disabled="chatForm.$invalid">
+            <input required type="text" placeholder="账号" ng-model="user.name">
         </div>
+        <div class="form-group">
+            <input required type="password" placeholder="密码" ng-model="user.pass">
+        </div>
+        <input class="btn btn-primary" type="submit" value="登录" ng-disabled="chatForm.$invalid">
+        <a class="btn btn-default" ng-href="#!/register">注册</a>
     </form>
 </div>

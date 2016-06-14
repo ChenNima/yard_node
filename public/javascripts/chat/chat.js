@@ -8,20 +8,21 @@ angular.module('myApp')
             '$cookies',
             '$location',
             'webNotification',
-            function ($scope, Restangular,$cookies,$location,webNotification) {
+            'LoginService',
+            function ($scope, Restangular,$cookies,$location,webNotification,LoginService) {
 
                 var sendData;
 
                 var getFlag = false;
 
+                var user = LoginService.getUserData();
 
-                if (!$cookies.get("chatname")) {
+                if (!user) {
                     $location.path('/login');
-                    $location.replace();
                 }
                 $scope.data={};
                 $scope.toSend=[];
-                $scope.data.name = $cookies.get("chatname");
+                $scope.data.name = user.nickName;
                 var interval = setInterval(function () {
                     refresh();
                 }, 2000);
@@ -109,9 +110,8 @@ angular.module('myApp')
                 };
 
                 $scope.logout =function(){
-                    $cookies.remove("chatname");
+                    LoginService.clearUserData();
                     $location.path('/login');
-                    $location.replace();
                 };
 
                 $scope.$on('$locationChangeStart', function (event, next, current) {

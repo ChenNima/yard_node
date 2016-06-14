@@ -11,6 +11,7 @@ angular.module('myApp', [
     'angular-web-notification'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
+    //LoginService.refresh();
     $routeProvider
         .when('/', {
             redirectTo: 'login'
@@ -22,5 +23,9 @@ angular.module('myApp', [
         .when('/login', {
             templateUrl: 'javascripts/login/login.html',
             controller: 'LoginController'
+        })
+        .when('/register', {
+            templateUrl: 'javascripts/login/register.html',
+            controller: 'RegisterController'
         })
 }]);
