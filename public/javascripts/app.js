@@ -11,7 +11,6 @@ angular.module('myApp', [
     'angular-web-notification'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
-
     $routeProvider
         .when('/', {
             redirectTo: 'login'

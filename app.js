@@ -11,7 +11,7 @@ var db = require('./db/db');
 var routes = require('./routes/index');
 
 var sms = require('./routes/sms');
-
+var login = require('./routes/login');
 var app = express();
 
 // view engine setup
@@ -33,6 +33,8 @@ db.connect();
 
 app.get('/get_sms', sms.get);
 app.post('/add_sms', sms.addNew);
+app.get('/login', login.login);
+app.post('/register', login.register);
 
 
 // catch 404 and forward to error handler

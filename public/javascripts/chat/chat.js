@@ -5,23 +5,23 @@ angular.module('myApp')
     .controller('ChatCtrl',
         ['$scope',
             'Restangular',
-            '$cookieStore',
+            '$cookies',
             '$location',
             'webNotification',
-            function ($scope, Restangular,$cookieStore,$location,webNotification) {
+            function ($scope, Restangular,$cookies,$location,webNotification) {
 
                 var sendData;
 
                 var getFlag = false;
 
 
-                if (!$cookieStore.get("chatname")) {
+                if (!$cookies.get("chatname")) {
                     $location.path('/login');
                     $location.replace();
                 }
                 $scope.data={};
                 $scope.toSend=[];
-                $scope.data.name = $cookieStore.get("chatname");
+                $scope.data.name = $cookies.get("chatname");
                 var interval = setInterval(function () {
                     refresh();
                 }, 2000);
@@ -109,7 +109,7 @@ angular.module('myApp')
                 };
 
                 $scope.logout =function(){
-                    $cookieStore.remove("chatname");
+                    $cookies.remove("chatname");
                     $location.path('/login');
                     $location.replace();
                 };
