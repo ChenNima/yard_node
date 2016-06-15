@@ -20,7 +20,7 @@ angular.module('myApp.services', [])
             getUserData : function(){
                 return _.isEmpty(localUser)?{}:{
                     name:localUser.name,
-                    nickname:localUser.nickName,
+                    nickName:localUser.nickName,
                     role:localUser.role
                 };
             },
