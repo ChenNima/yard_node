@@ -18,7 +18,11 @@ angular.module('myApp.services', [])
             },
 
             getUserData : function(){
-                return localUser;
+                return _.isEmpty(localUser)?{}:{
+                    name:localUser.name,
+                    nickname:localUser.nickName,
+                    role:localUser.role
+                };
             },
 
             clearUserData : function(){
