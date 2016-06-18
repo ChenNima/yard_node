@@ -10,23 +10,50 @@ module.exports = function(grunt) {
       '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+    bower: {
+      install: {
+        options: {
+          targetDir: './public/lib',
+          layout: 'byComponent',
+          install: true,
+          verbose: false,
+          cleanTargetDir: false,
+          cleanBowerDir: false,
+          bowerOptions: {}
+        }
+      }
+    },
     // Task configuration.
     concat: {
       options: {
         separator: ';'
       },
       dist: {
-        src: ['public/javascripts/**/*.js'],
+        src: ['public/lib/*/*.js','public/javascripts/**/*.js'],
         dest: 'public/dist/js_d.js'
       }
     },
     uglify: {
       options: {
-        banner: '<%= banner %>'
+        separator: ';'
       },
       dist: {
         src: '<%= concat.dist.dest %>',
         dest: 'public/dist/js_d.min.js'
+      }
+    },
+    cssmin: {
+      options: {
+        beautify: {
+          ascii_only: true
+        }
+      },
+      my_target: {
+        files: [
+          {
+            'public/dist/css/style.css': ['public/stylesheets/*.css']
+          }
+        ]
       }
     },
     jshint: {
@@ -53,9 +80,6 @@ module.exports = function(grunt) {
         src: ['lib/**/*.js', 'test/**/*.js']
       }
     },
-    nodeunit: {
-      files: ['test/**/*_test.js']
-    },
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
@@ -70,12 +94,16 @@ module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-bower-task');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'nodeunit', 'concat', 'uglify']);
+  grunt.registerTask('default', [ 'cssmin','concat','uglify']);
+
+  grunt.registerTask('bower', [ 'bower','concat','uglify']);
 
 };
