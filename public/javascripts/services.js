@@ -1,7 +1,7 @@
 /**
  * Created by yichen on 5/27/16.
  */
-angular.module('myApp.services', [])
+angular.module('loginService', [])
     .factory('LoginService',[
         '$cookies',
         function($cookies) {

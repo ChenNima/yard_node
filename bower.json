@@ -25,6 +25,8 @@
     "angular-ui-codemirror": "0.3.0",
     "angular-bootstrap-datetimepicker": "0.3.13",
     "papaparse": "4.1.0",
-    "angular-web-notification": "^0.0.74"
+    "angular-web-notification": "^0.0.74",
+    "requirejs":"2.2.0"
+
   }
 }

@@ -5,7 +5,7 @@
 
 angular.module('myApp', [
     'ngRoute',
-    'myApp.services',
+    'loginService',
     'restangular',
     'ngCookies',
     'angular-web-notification'
