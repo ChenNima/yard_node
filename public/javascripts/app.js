@@ -8,7 +8,9 @@ angular.module('myApp', [
     'loginService',
     'restangular',
     'ngCookies',
-    'angular-web-notification'
+    'dataFormat',
+    'angular-web-notification',
+    'ui.bootstrap'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
 

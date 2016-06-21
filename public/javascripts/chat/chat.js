@@ -7,9 +7,11 @@ angular.module('myApp')
             'Restangular',
             '$cookies',
             '$location',
+            '$uibModal',
             'webNotification',
             'LoginService',
-            function ($scope, Restangular,$cookies,$location,webNotification,LoginService) {
+            'dataFormat',
+            function ($scope, Restangular,$cookies,$location,$uibModal,webNotification,LoginService,dataFormat) {
 
                 var sendData;
 
@@ -38,30 +40,12 @@ angular.module('myApp')
                                 showNotify(_.last(data).name+": "+_.last(data).content);
                             }
                             if(!$scope.datas || _.last(data)._id!=_.last($scope.datas)._id){
-                                dataFormat(data);
+                                $scope.datas = dataFormat.format(data);
                             }
                             getFlag = false;
                         });
                 };
 
-                var dataFormat = function (data) {
-                    var temp = data;
-                    for (var line=0;line<temp.length;line++){
-                        var tempName = temp[line].name;
-                        for(line-=-1;;line++ ){
-                            if (line == temp.length){
-                                break;
-                            }
-                            if(temp[line].name==tempName){
-                                temp[line].hide = true;
-                            }else{
-                                line-=1;
-                                break;
-                            }
-                        }
-                    }
-                    $scope.datas = temp;
-                };
 
                 var showNotify = function (body) {
                     webNotification.showNotification('陈先森的院子有新消息!', {
@@ -93,6 +77,21 @@ angular.module('myApp')
                     return result;
                 };
 
+                $scope.history = function (){
+                    var res = $uibModal.open({
+                        templateUrl: 'javascripts/chat/history.html',
+                        controller: 'historyCtrl',
+                        size: 'lg',
+                        backdrop: 'static',
+                        resolve: {
+                            content: function () {
+                                return $scope.datas;
+                            },
+                        }
+                    });
+                };
+
+
                 $scope.smsTest = function () {
                     var myDate = new Date();
                     var time = myDate.getHours() + ":" + myDate.getMinutes() + ":" + myDate.getSeconds();
@@ -105,7 +104,7 @@ angular.module('myApp')
                     Restangular.one('/').post('add_sms', sendData)
                         .then(function (data) {
                             $scope.toSend.splice(0,1);
-                            dataFormat(data);
+                            $scope.datas = dataFormat.format(data);
                         });
                 };
 
