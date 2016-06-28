@@ -1,8 +1,10 @@
 /**
  * Created by CYF on 16/6/28.
  */
-angular.module('socket', [])
-    .factory('socket', function ($rootScope) {
+angular.module('socketService', [])
+    .factory('socketService',[
+        '$rootScope',
+        function ($rootScope) {
     var socket = io.connect();
     return {
         reconnect : function () {
@@ -33,4 +35,4 @@ angular.module('socket', [])
             socket.disconnect();
         }
     };
-});
+}]);

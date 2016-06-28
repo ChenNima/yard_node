@@ -9,9 +9,9 @@ angular.module('myApp', [
     'restangular',
     'ngCookies',
     'dataFormat',
-    'socket',
     'angular-web-notification',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'socketService'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
 

@@ -11,8 +11,8 @@ angular.module('myApp')
             'webNotification',
             'LoginService',
             'dataFormat',
-            'socket',
-            function ($scope, Restangular,$cookies,$location,$uibModal,webNotification,LoginService,dataFormat,socket) {
+            'socketService',
+            function ($scope, Restangular,$cookies,$location,$uibModal,webNotification,LoginService,dataFormat,socketService) {
 
                 var sendData;
 
@@ -27,11 +27,11 @@ angular.module('myApp')
                 $scope.data={};
                 $scope.toSend=[];
                 $scope.data.name = user.nickName;
-                socket.reconnect();
+                socketService.reconnect();
 
-                socket.emit('login',{userName:user.nickName});
+                socketService.emit('login',{userName:user.nickName});
 
-                socket.on('chats',function(data){
+                socketService.on('chats',function(data){
                     if ($scope.datas &&  _.last(data)._id!=_.last($scope.datas)._id && _.last(data).name != $scope.data.name){
                         showNotify(_.last(data).name+": "+_.last(data).content);
                     }
@@ -40,7 +40,7 @@ angular.module('myApp')
                     }
                 });
 
-                socket.on('chat_added',function(data){
+                socketService.on('chat_added',function(data){
                     console.log('posted');
                     //$scope.toSend.splice(0,1);
                 });
@@ -128,13 +128,13 @@ angular.module('myApp')
                     //        $scope.toSend.splice(0,1);
                     //        $scope.datas = dataFormat.format(data);
                     //    });
-                    socket.emit('add_new',{
+                    socketService.emit('add_new',{
                         data : sendData
                     })
                 };
 
                 $scope.$on('$locationChangeStart', function (event, next, current) {
-                        socket.disconnect();
+                        socketService.disconnect();
                         //clearInterval(interval);
                 }
                 );
