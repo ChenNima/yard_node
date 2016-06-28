@@ -506,9 +506,18 @@ angular.module('myApp')
                 if (_.isEmpty(user)) {
                     $location.path('/login');
                 }
+
+                var socket = io.connect();
+
                 $scope.data={};
                 $scope.toSend=[];
                 $scope.data.name = user.nickName;
+                socket.emit('login',{userName:user.nickName});
+
+                socket.on('chats',function(chats){
+                    console.log(chats);
+                });
+
                 var interval = setInterval(function () {
                     refresh();
                 }, 2000);
@@ -593,6 +602,7 @@ angular.module('myApp')
                 };
 
                 $scope.$on('$locationChangeStart', function (event, next, current) {
+                        socket.disconnect();
                         clearInterval(interval);
                 }
                 );
