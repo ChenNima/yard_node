@@ -11,11 +11,12 @@ angular.module('myApp')
             'webNotification',
             'LoginService',
             'dataFormat',
-            function ($scope, Restangular,$cookies,$location,$uibModal,webNotification,LoginService,dataFormat) {
+            'socket',
+            function ($scope, Restangular,$cookies,$location,$uibModal,webNotification,LoginService,dataFormat,socket) {
 
                 var sendData;
 
-                var getFlag = false;
+                //var getFlag = false;
 
                 var user = LoginService.getUserData();
 
@@ -23,37 +24,47 @@ angular.module('myApp')
                     $location.path('/login');
                 }
 
-                var socket = io.connect();
-
                 $scope.data={};
                 $scope.toSend=[];
                 $scope.data.name = user.nickName;
+                socket.reconnect();
+
                 socket.emit('login',{userName:user.nickName});
 
-                socket.on('chats',function(chats){
-                    console.log(chats);
+                socket.on('chats',function(data){
+                    if ($scope.datas &&  _.last(data)._id!=_.last($scope.datas)._id && _.last(data).name != $scope.data.name){
+                        showNotify(_.last(data).name+": "+_.last(data).content);
+                    }
+                    if(!$scope.datas || _.last(data)._id!=_.last($scope.datas)._id){
+                        $scope.datas = dataFormat.format(data);
+                    }
                 });
 
-                var interval = setInterval(function () {
-                    refresh();
-                }, 2000);
+                socket.on('chat_added',function(data){
+                    console.log('posted');
+                    //$scope.toSend.splice(0,1);
+                });
 
-                var refresh = function () {
-                    if (getFlag){
-                        return;
-                    }
-                    getFlag = true;
-                    Restangular.one('/get_sms').get()
-                        .then(function (data) {
-                            if ($scope.datas &&  _.last(data)._id!=_.last($scope.datas)._id && _.last(data).name != $scope.data.name){
-                                showNotify(_.last(data).name+": "+_.last(data).content);
-                            }
-                            if(!$scope.datas || _.last(data)._id!=_.last($scope.datas)._id){
-                                $scope.datas = dataFormat.format(data);
-                            }
-                            getFlag = false;
-                        });
-                };
+                //var interval = setInterval(function () {
+                //    refresh();
+                //}, 2000);
+
+                //var refresh = function () {
+                //    if (getFlag){
+                //        return;
+                //    }
+                //    getFlag = true;
+                //    Restangular.one('/get_sms').get()
+                //        .then(function (data) {
+                //            if ($scope.datas &&  _.last(data)._id!=_.last($scope.datas)._id && _.last(data).name != $scope.data.name){
+                //                showNotify(_.last(data).name+": "+_.last(data).content);
+                //            }
+                //            if(!$scope.datas || _.last(data)._id!=_.last($scope.datas)._id){
+                //                $scope.datas = dataFormat.format(data);
+                //            }
+                //            getFlag = false;
+                //        });
+                //};
 
 
                 var showNotify = function (body) {
@@ -95,7 +106,7 @@ angular.module('myApp')
                         resolve: {
                             content: function () {
                                 return $scope.datas;
-                            },
+                            }
                         }
                     });
                 };
@@ -107,22 +118,27 @@ angular.module('myApp')
                     $scope.data.date = time;
                     sendData = deepCopy($scope.data);
                     $scope.data.content = "";
-                    $scope.toSend.push(sendData);
-                    $scope.datas.splice(0,1);
-                    $scope.datas[0].hide = false;
-                    Restangular.one('/').post('add_sms', sendData)
-                        .then(function (data) {
-                            $scope.toSend.splice(0,1);
-                            $scope.datas = dataFormat.format(data);
-                        });
+
+                    //$scope.toSend.push(sendData);
+                    //$scope.datas.splice(0,1);
+                    //$scope.datas[0].hide = false;
+
+                    //Restangular.one('/').post('add_sms', sendData)
+                    //    .then(function (data) {
+                    //        $scope.toSend.splice(0,1);
+                    //        $scope.datas = dataFormat.format(data);
+                    //    });
+                    socket.emit('add_new',{
+                        data : sendData
+                    })
                 };
 
                 $scope.$on('$locationChangeStart', function (event, next, current) {
                         socket.disconnect();
-                        clearInterval(interval);
+                        //clearInterval(interval);
                 }
                 );
 
 
-                refresh();
+                //refresh();
             }]);

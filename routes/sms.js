@@ -59,15 +59,16 @@ exports.socketGet = function (callback) {
     });
 };
 
-exports.socketPost = function (chat) {
+exports.socketPost = function (chat,callback) {
     var new_log = new chatLog(chat);
 
     new_log.save(function (err, test) {
         if (err) {
             console.error(err);
-            return {message: false}
+            callback(false);
+            return;
         }
         console.log(test.name + "saved by socket");
-        return {message: true}
+        callback(true);
     });
 };

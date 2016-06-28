@@ -7,10 +7,10 @@ var socketIo;
 
 var chats=[];
 
-var refresh = function(socket){
+var refresh = function(){
     chat.socketGet(function(res){
         chats = res;
-        socket.emit('chats',chats);
+        socketIo.emit('chats',chats);
     });
 };
 
@@ -19,7 +19,7 @@ exports.set = function(io){
     socketIo.on('connection', function (socket) {
         console.log('user connected');
 
-        refresh(socket);
+        refresh();
 
         socket.on('login', function(obj) {
             socket.name = obj.userName;
@@ -27,9 +27,14 @@ exports.set = function(io){
         });
 
         socket.on('add_new',function(obj){
-            if(chat.socketPost(obj.data)){
-                refresh(socket);
-            }
+            chat.socketPost(obj.data,function(status){
+                if(!status){
+                    socket.emit('chat_added',{message:false});
+                    return;
+                }
+                refresh();
+                socketIo.emit('chat_added',{message:true});
+            })
         });
 
 

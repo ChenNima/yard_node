@@ -9,6 +9,7 @@ angular.module('myApp', [
     'restangular',
     'ngCookies',
     'dataFormat',
+    'socket',
     'angular-web-notification',
     'ui.bootstrap'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
