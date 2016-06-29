@@ -1,6 +1,7 @@
-<div>
+<div calss="container">
+    <a>{{'当前在线:'+onlineUsers}}</a>
     <table class="chat-table">
-        <tr ng-repeat="result in datas" >
+        <tr ng-repeat="result in datas">
             <td>{{data.name==result.name||result.hide?"":result.date}}</td>
             <td style="color:#00B7FF">{{data.name==result.name||result.hide?"":result.name}}</td>
             <td ng-class="{'other-line':data.name!=result.name,'chat-line':data.name==result.name}">
@@ -9,7 +10,7 @@
             <td style="color:#ff8514" ng-show="data.name==result.name">{{result.hide?"":result.name}}</td>
             <td ng-show="data.name==result.name">{{result.hide?"":result.date}}</td>
         </tr>
-        <tr ng-repeat="result in toSend" >
+        <tr ng-repeat="result in toSend">
             <td>{{""}}</td>
             <td>{{""}}</td>
             <td class="chat-line">
@@ -22,9 +23,13 @@
     </table>
     <form name="chatForm" role="form" class="form-horizontal" ng-submit="smsTest()">
         <div class="form-group">
-            <a class="btn btn-default" data-ng-click="history()">历史记录</a>
-            <input required type="text" placeholder="内容" ng-model="data.content">
-            <input class="btn btn-primary" type="submit" value="提交" ng-disabled="chatForm.$invalid">
+            <div class="input-group chat-input">
+                <input class="form-control" required type="text" placeholder="内容" ng-model="data.content">
+                 <span class="input-group-btn">
+                     <input class="btn btn-primary" type="submit" value="提交" ng-disabled="chatForm.$invalid">
+                     <a class="btn btn-default" data-ng-click="history()">历史记录</a>
+                 </span>
+            </div>
         </div>
     </form>
 </div>

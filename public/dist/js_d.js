@@ -505,6 +505,8 @@ angular.module('myApp')
 
                 var user = LoginService.getUserData();
 
+                $scope.onlineUsers = [];
+
                 if (_.isEmpty(user)) {
                     $location.path('/login');
                 }
@@ -528,6 +530,10 @@ angular.module('myApp')
                 socketService.on('chat_added',function(data){
                     console.log('posted');
                     //$scope.toSend.splice(0,1);
+                });
+
+                socketService.on('user_login_change',function(data){
+                    $scope.onlineUsers = data;
                 });
 
                 //var interval = setInterval(function () {
