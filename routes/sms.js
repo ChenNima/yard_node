@@ -2,6 +2,7 @@
  * Created by yichen on 6/1/16.
  */
 var mongoose = require('mongoose');
+var io = require('../socket/io');
 
 var chatLogSchema = new mongoose.Schema({
     name: String,
@@ -44,6 +45,7 @@ exports.addNew = function (req, res) {
     new_log.save(function (err, test) {
         if (err) return console.error(err);
         console.log(test.name + "saved");
+        io.postBroadcast();
         refresh(function () {
             res.send(200, smsArray);
         });
