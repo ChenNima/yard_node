@@ -1,15 +1,47 @@
 .chat-table {
   margin: auto; }
   .chat-table td {
-    border: 1px solid #F7F7F7;
-    padding: 3px 0 3px 5px; }
+    border: 0px solid #F7F7F7;
+    padding: 10px 0 10px 5px; }
   .chat-table .other-line {
-    background-color: #cbfcb8;
     width: 400px;
     text-align: left; }
   .chat-table .chat-line {
     width: 400px;
     text-align: right; }
+
+.chat-bubble-left {
+  display: inline-block;
+  background-color: #a5ff97;
+  padding: 6px;
+  margin: 0px 0px 0px 11px;
+  border-radius: 8px; }
+
+.chat-bubble-right {
+  display: inline-block;
+  background-color: #ecefe6;
+  padding: 6px;
+  margin: 0px 11px 0px 0px;
+  border-radius: 8px; }
+
+.triangle-left {
+  margin: 7px 0 0 0;
+  position: absolute;
+  height: 0px;
+  width: 0px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent #a5ff97 transparent transparent; }
+
+.triangle-right {
+  display: inline;
+  margin: 13px 0 20px -12px;
+  position: absolute;
+  height: 0px;
+  width: 0px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent transparent #ecefe6; }
 
 .chat-input {
   width: 400px;

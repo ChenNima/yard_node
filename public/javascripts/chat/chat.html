@@ -5,7 +5,11 @@
             <td>{{data.name==result.name||result.hide?"":result.date}}</td>
             <td style="color:#00B7FF">{{data.name==result.name||result.hide?"":result.name}}</td>
             <td ng-class="{'other-line':data.name!=result.name,'chat-line':data.name==result.name}">
-                {{"&nbsp;&nbsp;"+result.content+"&nbsp;&nbsp;"}}
+                <div class="triangle-left" ng-if="data.name!==result.name"></div>
+                <div ng-class="{'chat-bubble-left':data.name!=result.name,'chat-bubble-right':data.name==result.name}">
+                    {{"&nbsp;&nbsp;"+result.content+"&nbsp;&nbsp;"}}
+                </div>
+                <div class="triangle-right" ng-if="data.name==result.name"></div>
             </td>
             <td style="color:#ff8514" ng-show="data.name==result.name">{{result.hide?"":result.name}}</td>
             <td ng-show="data.name==result.name">{{result.hide?"":result.date}}</td>
