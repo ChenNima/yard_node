@@ -5,11 +5,11 @@ angular.module('socketService', [])
     .factory('socketService',[
         '$rootScope',
         function ($rootScope) {
-    var socket = io.connect();
+    var socket = io.connect('http://115.28.109.109:81/');
     return {
         reconnect : function () {
             if(socket.connected){
-                socket.disconnect();
+                socket.disconnect('http://115.28.109.109:81/');
             }
             socket = io.connect();
         },
