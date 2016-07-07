@@ -9,9 +9,9 @@ angular.module('socketService', [])
     return {
         reconnect : function () {
             if(socket.connected){
-                socket.disconnect('http://115.28.109.109:81/');
+                socket.disconnect();
             }
-            socket = io.connect();
+            socket = io.connect('http://115.28.109.109:81/');
         },
         on: function (eventName, callback) {
             socket.on(eventName, function () {
