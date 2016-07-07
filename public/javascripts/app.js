@@ -11,9 +11,12 @@ angular.module('myApp', [
     'dataFormat',
     'angular-web-notification',
     'ui.bootstrap',
-    'socketService'
-]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+    'socketService',
+])
+    .config(['$locationProvider', '$routeProvider','RestangularProvider', function ($locationProvider, $routeProvider,RestangularProvider) {
     $locationProvider.hashPrefix('!');
+
+        RestangularProvider.setBaseUrl('http://115.28.109.109:81/');
 
     $routeProvider
         .when('/', {
