@@ -617,17 +617,24 @@ angular.module('myApp').controller('historyCtrl',[
         $scope.currentPage = 1;
         $scope.data ={};
         $scope.data.name = user;
+        $scope.name='';
 
-        Restangular.one('sms-count').get().then(function(data){
-            $scope.totalItems = data.count;
-            getPage();
-        });
+        var getCount = function(){
+            Restangular.one('sms-count').get({name:$scope.name}).then(function(data){
+                $scope.totalItems = data.count;
+                getPage();
+            });
+        };
 
         var getPage = function(){
             var page = arguments[0]||0;
-            Restangular.all('sms').getList({page:page,limit:$scope.limit}).then(function(data){
+            Restangular.all('sms').getList({page:page,limit:$scope.limit,name:$scope.name}).then(function(data){
                 $scope.datas = dataFormat.format(data);
             })
+        };
+
+        $scope.searchUser =function(){
+            getCount();
         };
 
         $scope.setPage = function (pageNo) {
@@ -647,6 +654,8 @@ angular.module('myApp').controller('historyCtrl',[
         $scope.close = function(){
             $uibModalInstance.dismiss();
         };
+
+        getCount();
 
     }
 

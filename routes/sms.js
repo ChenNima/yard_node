@@ -13,17 +13,18 @@ var chatLog = mongoose.model('chat_log', chatLogSchema);
 
 var smsArray = [];
 
-var refresh = function (page,limit,callback) {
+var refresh = function (page,limit,name,callback) {
     var myPage = parseInt(page);
     var myLimit = parseInt(limit);
     var skip = (myPage+1)*myLimit;
-    chatLog.count({}, function (err, count) {
+    var user = name||{$exists:true};
+    chatLog.count({'name':user}, function (err, count) {
         if(skip>count){
             myLimit = skip - count;
             skip=count;
         }
         chatLog
-            .find()
+            .find({name:user})
             .skip(count - skip)
             .limit(myLimit)
             .exec(function (err, logs) {
@@ -45,7 +46,8 @@ exports.getList = function (req, res) {
     var query = req.query;
     var page = query.page||0;
     var limit = query.limit||25;
-    refresh(page,limit,function () {
+    var user = query.name;
+    refresh(page,limit,user,function () {
         res.status(200).send(smsArray);
     });
 };
@@ -61,14 +63,15 @@ exports.addNew = function (req, res) {
 };
 
 exports.count = function(req, res){
-    chatLog.count({}, function (err, count) {
+    var user = req.query.name||{$exists:true};
+    chatLog.count({name:user}, function (err, count) {
         if (err) return console.error(err);
         res.status(200).send({count:count});
     });
 };
 
 exports.socketGet = function (callback) {
-    refresh(0,25,function () {
+    refresh(0,25,null,function () {
         if(callback){
             callback(smsArray);
         }
