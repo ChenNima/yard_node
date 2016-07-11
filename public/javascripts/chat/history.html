@@ -1,3 +1,46 @@
-<div class="container">
-    <button class="btn btn-default" data-ng-click="close()">关闭</button>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <span>历史记录</span>
+        <a class="btn btn-danger btn-xs pull-right" data-ng-click="close()">
+            <span class="glyphicon glyphicon-remove">
+            </span>
+        </a>
+    </div>
+    <div class="chat-history">
+    <table class="chat-table">
+        <tr ng-repeat="result in datas">
+            <td>{{data.name==result.name||result.hide?"":result.date}}</td>
+            <td style="color:#00B7FF">{{data.name==result.name||result.hide?"":result.name}}</td>
+            <td ng-class="{'other-line':data.name!=result.name,'chat-line':data.name==result.name}">
+                <div ng-class="{'chat-bubble-left':data.name!=result.name,'chat-bubble-right':data.name==result.name}">
+                    {{"&nbsp;&nbsp;"+result.content+"&nbsp;&nbsp;"}}
+                </div>
+            </td>
+            <td style="color:#ff8514" ng-show="data.name==result.name">{{result.hide?"":result.name}}</td>
+            <td ng-show="data.name==result.name">{{result.hide?"":result.date}}</td>
+        </tr>
+    </table>
+        </div>
+    <div class="modal-footer">
+        <uib-pagination total-items="totalItems" items-per-page="limit" ng-model="currentPage" max-size="maxSize"
+                        class="pagination-sm col-md-6" boundary-link-numbers="true" rotate="true"
+                        ng-change="pageChanged()" style="margin: 0">
+        </uib-pagination>
+        <div class="col-md-3">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Go to Page..." ng-model="targetPage">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" data-ng-click="setPage(targetPage)">Go!</button>
+                 </span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                 </span>
+            </div>
+        </div>
+    </div>
 </div>

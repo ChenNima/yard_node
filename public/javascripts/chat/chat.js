@@ -51,27 +51,6 @@ angular.module('myApp')
                     $scope.onlineUsers = data;
                 });
 
-                //var interval = setInterval(function () {
-                //    refresh();
-                //}, 2000);
-
-                //var refresh = function () {
-                //    if (getFlag){
-                //        return;
-                //    }
-                //    getFlag = true;
-                //    Restangular.one('/get_sms').get()
-                //        .then(function (data) {
-                //            if ($scope.datas &&  _.last(data)._id!=_.last($scope.datas)._id && _.last(data).name != $scope.data.name){
-                //                showNotify(_.last(data).name+": "+_.last(data).content);
-                //            }
-                //            if(!$scope.datas || _.last(data)._id!=_.last($scope.datas)._id){
-                //                $scope.datas = dataFormat.format(data);
-                //            }
-                //            getFlag = false;
-                //        });
-                //};
-
 
                 var showNotify = function (body) {
                     webNotification.showNotification('陈先森的院子有新消息!', {
@@ -110,8 +89,8 @@ angular.module('myApp')
                         size: 'lg',
                         backdrop: 'static',
                         resolve: {
-                            content: function () {
-                                return $scope.datas;
+                            user: function () {
+                                return $scope.data.name;
                             }
                         }
                     });
@@ -125,15 +104,6 @@ angular.module('myApp')
                     sendData = deepCopy($scope.data);
                     $scope.data.content = "";
 
-                    //$scope.toSend.push(sendData);
-                    //$scope.datas.splice(0,1);
-                    //$scope.datas[0].hide = false;
-
-                    //Restangular.one('/').post('add_sms', sendData)
-                    //    .then(function (data) {
-                    //        $scope.toSend.splice(0,1);
-                    //        $scope.datas = dataFormat.format(data);
-                    //    });
                     socketService.emit('add_new',{
                         data : sendData
                     })
@@ -141,10 +111,7 @@ angular.module('myApp')
 
                 $scope.$on('$locationChangeStart', function (event, next, current) {
                         socketService.disconnect();
-                        //clearInterval(interval);
                 }
                 );
 
-
-                //refresh();
             }]);

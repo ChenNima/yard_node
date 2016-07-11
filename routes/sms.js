@@ -13,12 +13,19 @@ var chatLog = mongoose.model('chat_log', chatLogSchema);
 
 var smsArray = [];
 
-var refresh = function (callback) {
+var refresh = function (page,limit,callback) {
+    var myPage = parseInt(page);
+    var myLimit = parseInt(limit);
+    var skip = (myPage+1)*myLimit;
     chatLog.count({}, function (err, count) {
+        if(skip>count){
+            myLimit = skip - count;
+            skip=count;
+        }
         chatLog
             .find()
-            .skip(count - 25)
-            .limit(25)
+            .skip(count - skip)
+            .limit(myLimit)
             .exec(function (err, logs) {
                 if (err) return console.error(err);
                 smsArray = [];
@@ -34,9 +41,12 @@ var refresh = function (callback) {
 
 refresh();
 
-exports.get = function (req, res) {
-    refresh(function () {
-        res.send(200, smsArray);
+exports.getList = function (req, res) {
+    var query = req.query;
+    var page = query.page||0;
+    var limit = query.limit||25;
+    refresh(page,limit,function () {
+        res.status(200).send(smsArray);
     });
 };
 exports.addNew = function (req, res) {
@@ -46,15 +56,19 @@ exports.addNew = function (req, res) {
         if (err) return console.error(err);
         console.log(test.name + "saved");
         io.postBroadcast();
-        refresh(function () {
-            res.send(200, smsArray);
-        });
+        res.status(200).send(req.body)
     });
-    //smsArray.push(req.body);
+};
+
+exports.count = function(req, res){
+    chatLog.count({}, function (err, count) {
+        if (err) return console.error(err);
+        res.status(200).send({count:count});
+    });
 };
 
 exports.socketGet = function (callback) {
-    refresh(function () {
+    refresh(0,25,function () {
         if(callback){
             callback(smsArray);
         }

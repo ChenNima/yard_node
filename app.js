@@ -27,8 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
-//app.use('/', routes);
-
 db.connect();
 
 //设置跨域访问
@@ -41,10 +39,12 @@ app.all('*', function(req, res, next) {
   next();
 });
 
-app.get('/get_sms', sms.get);
-app.post('/add_sms', sms.addNew);
-app.get('/login', login.login);
-app.post('/register', login.register);
+app.use(routes);
+
+//app.get('/get_sms', sms.get);
+//app.post('/add_sms', sms.addNew);
+//app.get('/login', login.login);
+//app.post('/register', login.register);
 
 
 // catch 404 and forward to error handler

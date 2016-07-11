@@ -1,4 +1,4 @@
-<div calss="container">
+<div class="container">
     <a>{{'当前在线:'+onlineUsers}}</a>
     <table class="chat-table">
         <tr ng-repeat="result in datas">
@@ -14,20 +14,10 @@
             <td style="color:#ff8514" ng-show="data.name==result.name">{{result.hide?"":result.name}}</td>
             <td ng-show="data.name==result.name">{{result.hide?"":result.date}}</td>
         </tr>
-        <tr ng-repeat="result in toSend">
-            <td>{{""}}</td>
-            <td>{{""}}</td>
-            <td class="chat-line">
-                <span class="glyphicon glyphicon-share-alt"></span>
-                {{result.content+"&nbsp;&nbsp;"}}
-            </td>
-            <td style="color:rgba(56, 149, 67, 0.79)">发送中</td>
-            <td>{{result.date}}</td>
-        </tr>
     </table>
-    <form name="chatForm" role="form" class="form-horizontal" ng-submit="smsTest()">
+    <form name="chatForm" role="form" class="form-horizontal chat-input" ng-submit="smsTest()">
         <div class="form-group">
-            <div class="input-group chat-input">
+            <div class="input-group">
                 <input class="form-control" required type="text" placeholder="内容" ng-model="data.content">
                  <span class="input-group-btn">
                      <input class="btn btn-primary" type="submit" value="提交" ng-disabled="chatForm.$invalid">

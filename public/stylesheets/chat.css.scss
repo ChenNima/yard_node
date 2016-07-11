@@ -18,6 +18,11 @@
 
 }
 
+.chat-history{
+  max-height:550px;
+  overflow-y:auto;
+}
+
 .chat-bubble-left {
   display: inline-block;
   background-color: #a5ff97;
@@ -56,6 +61,11 @@
 }
 
 .chat-input {
+  position:fixed;
+  margin-left:auto;
+  margin-right:auto;
+  left: 0;
+  right: 0;
+  bottom: 10px;
   width: 400px;
-  margin: 0 auto;
 }
