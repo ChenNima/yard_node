@@ -27,10 +27,10 @@
         </div>
     <div class="modal-footer">
         <uib-pagination total-items="totalItems" items-per-page="limit" ng-model="currentPage" max-size="maxSize"
-                        class="pagination-sm col-md-8" boundary-link-numbers="true" rotate="true"
-                        ng-change="pageChanged()" style="margin: 0">
+                        class="pagination-sm col-xs-8" boundary-link-numbers="true" rotate="true"
+                        ng-change="pageChanged()" style="margin: 0" previous-text="&lsaquo;" next-text="&rsaquo;">
         </uib-pagination>
-        <div class="col-md-2">
+        <div class="col-xs-2">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Go to page..." ng-model="targetPage">
                 <span class="input-group-btn">
@@ -38,7 +38,7 @@
                  </span>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-xs-2">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search user..." ng-model="name">
                 <span class="input-group-btn">
