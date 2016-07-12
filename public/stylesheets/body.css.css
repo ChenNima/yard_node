@@ -1,6 +1,10 @@
 .main-div {
-  padding: 50px;
+  padding: 80px 50px;
   text-align: center;
-  margin: 0 auto; }
+  margin: 0 auto;
+  background-color: #fafaff; }
+
+.navbar-inner {
+  background-color: rgba(0, 0, 0, 0.83); }
 
 /*# sourceMappingURL=body.css.css.map */

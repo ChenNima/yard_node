@@ -18,9 +18,13 @@
 
 }
 
-.chat-history{
-  max-height:550px;
-  overflow-y:auto;
+.chat-history-window{
+
+  z-index: 9999;
+  .chat-history{
+    max-height:550px;
+    overflow-y:auto;
+  }
 }
 
 .chat-bubble-left {
