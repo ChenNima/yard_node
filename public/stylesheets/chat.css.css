@@ -2,13 +2,21 @@
   margin: auto; }
   .chat-table td {
     border: 0px solid #F7F7F7;
-    padding: 5px 0 5px 5px; }
+    padding: 5px 0 5px 5px;
+    width: 100%;
+    max-width: 200px; }
   .chat-table .other-line {
-    width: 400px;
+    width: 80%;
     text-align: left; }
   .chat-table .chat-line {
-    width: 400px;
+    width: 80%;
     text-align: right; }
+  .chat-table .chat-name-left {
+    width: 10%;
+    color: #00B7FF; }
+  .chat-table .chat-name-right {
+    width: 10%;
+    color: #ff8514; }
 
 .chat-history-window {
   z-index: 9999; }

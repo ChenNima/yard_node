@@ -2,8 +2,10 @@
     <a>{{'当前在线:'+onlineUsers}}</a>
     <table class="chat-table">
         <tr ng-repeat="result in datas">
-            <td>{{data.name==result.name||result.hide?"":result.date}}</td>
-            <td style="color:#00B7FF">{{data.name==result.name||result.hide?"":result.name}}</td>
+            <td class="chat-name-left">
+                {{data.name==result.name||result.hide?"":(result.name)}}<br>
+                {{data.name==result.name||result.hide?"":result.date}}
+            </td>
             <td ng-class="{'other-line':data.name!=result.name,'chat-line':data.name==result.name}">
                 <div class="triangle-left" ng-if="data.name!==result.name"></div>
                 <div ng-class="{'chat-bubble-left':data.name!=result.name,'chat-bubble-right':data.name==result.name}">
@@ -11,8 +13,10 @@
                 </div>
                 <div class="triangle-right" ng-if="data.name==result.name"></div>
             </td>
-            <td style="color:#ff8514" ng-show="data.name==result.name">{{result.hide?"":result.name}}</td>
-            <td ng-show="data.name==result.name">{{result.hide?"":result.date}}</td>
+            <td class="chat-name-right" ng-show="data.name==result.name">
+                {{result.hide?"":result.name}}<br>
+                {{result.hide?"":result.date}}
+            </td>
         </tr>
     </table>
     <form name="chatForm" role="form" class="form-horizontal chat-input" ng-submit="smsTest()">
