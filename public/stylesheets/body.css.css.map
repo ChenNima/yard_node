@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,SAAS;EACP,OAAO,EAAE,SAAS;EAClB,UAAU,EAAC,MAAM;EACjB,MAAM,EAAC,MAAM;EACb,gBAAgB,EAAE,OAAO;;AAG3B,aAAc;EACZ,gBAAgB,EAAE,mBAAmB",
+"mappings": "AAAA,SAAS;EACP,OAAO,EAAE,MAAM;EACf,UAAU,EAAC,MAAM;EACjB,MAAM,EAAC,MAAM;EACb,gBAAgB,EAAE,OAAO;;AAG3B,aAAc;EACZ,gBAAgB,EAAE,mBAAmB",
 "sources": ["body.css.scss"],
 "names": [],
 "file": "body.css.css"

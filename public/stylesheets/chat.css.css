@@ -21,7 +21,7 @@
 .chat-history-window {
   z-index: 9999; }
   .chat-history-window .chat-history {
-    max-height: 550px;
+    max-height: 400px;
     overflow-y: auto; }
 
 .chat-bubble-left {
