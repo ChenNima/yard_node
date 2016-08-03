@@ -13,6 +13,8 @@ var sms = require('../routes/sms');
 var login = require('../routes/login');
 var app = express();
 
+//require('./test-helper');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
