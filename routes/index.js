@@ -4,6 +4,7 @@ var router = express.Router();
 var sms = require('./sms');
 var login = require('./login');
 var rate = require('./rate');
+var lab = require('./lab');
 
 //sms
 router.get('/sms', sms.getList);
@@ -19,6 +20,9 @@ router.post('/register', login.register);
 router.get('/like', rate.like);
 router.get('/dislike', rate.dislike);
 router.get('/get-rate', rate.get);
+
+//lab
+router.post('/lab', lab.post);
 
 
 module.exports = router;
