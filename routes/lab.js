@@ -4,10 +4,10 @@
 var mongoose = require('mongoose');
 
 var labSchema = new mongoose.Schema({
-    date: String,
+    date: Date,
     lat: Number,
     long:Number,
-    network:Number,
+    network:String,
     heading:Number,
     accuracy:Number,
     bandwidth:Number
