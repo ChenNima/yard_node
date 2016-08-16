@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 
 var labSchema = new mongoose.Schema({
     date: Date,
+    month:Number,
+    day:Number,
     lat: Number,
     long:Number,
     network:String,
@@ -15,7 +17,11 @@ var labSchema = new mongoose.Schema({
 var lab = mongoose.model('lab', labSchema);
 
 exports.post = function(req, res){
-    var newLab = new lab(req.body);
+    var myLab =  req.body;
+    var myDate = new Date(myLab.date);
+    myLab.month = myDate.getMonth();
+    myLab.day = myDate.getDate();
+    var newLab = new lab(myLab);
     newLab.save(function (err, lab) {
         if (err) return console.error(err);
         res.status(200).send(lab);
