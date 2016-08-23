@@ -27,3 +27,7 @@ exports.post = function(req, res){
         res.status(200).send(lab);
     });
 };
+
+exports.getAllData = function(){
+  return lab.find().exec();
+};
