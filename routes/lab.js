@@ -14,6 +14,14 @@ var labSchema = new mongoose.Schema({
     accuracy:Number,
     bandwidth:Number
 });
+
+var clusterSchema = new mongoose.Schema({
+    date: Date,
+    center:Array
+});
+
+var cluster = mongoose.model('cluster',clusterSchema);
+
 var lab = mongoose.model('lab', labSchema);
 
 exports.post = function(req, res){
@@ -30,4 +38,12 @@ exports.post = function(req, res){
 
 exports.getAllData = function(){
   return lab.find().exec();
+};
+
+exports.saveCluster = function(centers){
+    var newCluster = new cluster({
+        date:new Date(),
+        center:centers
+    });
+    newCluster.save(function (err, cluster){});
 };
