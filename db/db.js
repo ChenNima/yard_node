@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 var kMedoids = require('../routes/task/k-medoids');
+var kMedoidsJob = require('../routes/job/k-medoids-job');
+var kSplitJob = require('../routes/job/k-split-job');
+
 
 exports.connect = function(){
     //mongoose.connect('mongodb://yifei.chen:FFff1122@ds021663.mlab.com:21663/mrc_mongo');
@@ -8,6 +11,7 @@ exports.connect = function(){
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function (callback) {
         console.log("DB connected");
-        kMedoids.exec();
+        //kMedoidsJob.exec();
+        //kSplitJob.exec(6);
     });
 };

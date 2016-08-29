@@ -2,12 +2,13 @@
  * Created by fan on 2016/8/23.
  */
 var lab = require('../lab');
-
-var dataPromise = lab.getAllData();
+var _ = require('underscore');
 
 var loc = function(lat,long){
-    this.lat = ((lat-31)*100).toFixed(3);
-    this.long = ((long-121)*100).toFixed(3);
+    //this.lat = ((lat-31)*100);
+    //this.long = ((long-121)*100);
+    this.lat = lat;
+    this.long = long;
 };
 
 var getRandomSpot = function(num,array,center,clusters){
@@ -25,6 +26,11 @@ var findNearestCenter = function(center,clusters,locations){
         var distance = Number.MAX_VALUE;
         var index = 0;
         for(var i=0;i<center.length;i++){
+            if(location === center[i]){
+                index =i;
+                distance = 0;
+                break;
+            }
             var currentDis = getEuclidDis(location,center[i]);
             if(currentDis < distance){
                 index =i;
@@ -35,7 +41,7 @@ var findNearestCenter = function(center,clusters,locations){
     });
 };
 
-var findBestCenter = function(center,clusters){
+var findBestCenter = function(center,clusters,distances){
     var localDis = 0;
     clusters.forEach(function(cluster,index){
         var centerSpot = center[index];
@@ -45,11 +51,13 @@ var findBestCenter = function(center,clusters){
             cluster.forEach(function(loc){
                 sumDis += Number(getEuclidDis(loc,location));
             });
+            sumDis /= cluster.length>1?(cluster.length-1):cluster.length;
             if(sumDis<minDis){
                 minDis = sumDis;
                 centerSpot = location;
             }
         });
+        distances[index] = minDis;
         center[index] = centerSpot;
         localDis+=minDis;
     });
@@ -62,61 +70,65 @@ var getEuclidDis = function(pointA,pointB){
     return Math.sqrt(deltaLat*deltaLat+deltaLong*deltaLong).toFixed(3)
 };
 
-var learn = function(dataSet){
+var learn = function(dataSet,num){
     var localLocations = [];
 
     var localCenter = [];
 
     var localClusters = [];
 
+    var localDistances = [];
+
     var localDistance = Number.MAX_VALUE;
 
         dataSet.forEach(function(data){
             localLocations.push(new loc(data.lat,data.long));
         });
-        getRandomSpot(4,localLocations,localCenter,localClusters);
+        getRandomSpot(num,localLocations,localCenter,localClusters);
 
         for(var i=0;i<10;i++){
+            var previousCluster = localClusters.slice();
             findNearestCenter(localCenter,localClusters,localLocations);
-            var tempDistance = findBestCenter(localCenter,localClusters);
+            var tempDistance = findBestCenter(localCenter,localClusters,localDistances);
             if(tempDistance<localDistance){
                 localDistance = tempDistance;
             }
-            console.log('当前学习次数：'+i+' 当前各个集群大小：'+localClusters[0].length+' '+localClusters[1].length+' '+localClusters[2].length+' '+localClusters[3].length);
-        }
-
-        localCenter.forEach(function(spot){
-            spot.lat = (spot.lat/100)+31;
-            spot.long = (spot.long/100)+121;
-        });
-        console.log(localCenter);
-        console.log('总计距离：'+localDistance);
-        return {
-            center:localCenter,
-            clusters:localClusters,
-            distance:localDistance
-        }
-};
-
-exports.exec = function(){
-
-    var distance = Number.MAX_VALUE;
-
-    var cluster = {};
-    dataPromise.then(function(dataSet){
-        for(var i=0;i<20;i++){
-            var clusterHolder = learn(dataSet);
-            if(clusterHolder.distance<distance){
-                distance = clusterHolder.distance;
-                cluster = clusterHolder;
+            console.log('当前学习次数：'+i+' 当前各个集群大小：');
+            var length = '';
+            localClusters.forEach(function(cluster){
+                length += ' '+cluster.length;
+            });
+            console.log(length);
+            if(_.isEqual(previousCluster,localClusters)){
+                break;
             }
         }
 
-        console.log('最小距离：'+distance+',最优分类：'+JSON.stringify(cluster.center));
-        console.log('最佳各个集群大小：'+cluster.clusters[0].length+' '+cluster.clusters[1].length+' '+cluster.clusters[2].length+' '+cluster.clusters[3].length);
-
-        lab.saveCluster(cluster.center);
-    });
-
-
+        //localCenter.forEach(function(spot){
+        //    spot.lat = (spot.lat/100)+31;
+        //    spot.long = (spot.long/100)+121;
+        //});
+    //localClusters.forEach(function(Cluster){
+    //    Cluster.forEach(function(spot){
+    //        spot.lat = (spot.lat/100)+31;
+    //        spot.long = (spot.long/100)+121;
+    //    });
+    //});
+        console.log(localCenter);
+        console.log('总计距离：'+localDistance);
+        var clusters = [];
+        localCenter.forEach(function(center,index){
+            clusters.push({
+                center:center,
+                cluster:localClusters[index],
+                distance:localDistances[index]
+            });
+        });
+        return {
+            clusters:clusters,
+            distance: localDistance
+        }
 };
+
+
+exports.learn = learn;
