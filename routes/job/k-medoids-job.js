@@ -6,14 +6,14 @@ var lab = require('../lab');
 
 var dataPromise = lab.getAllData();
 
-exports.exec = function(){
+exports.exec = function(num,it){
 
     var distance = Number.MAX_VALUE;
 
     var cluster = {};
     dataPromise.then(function(dataSet){
-        for(var i=0;i<20;i++){
-            var clusterHolder = kMedoids.learn(dataSet,6);
+        for(var i=0;i<it;i++){
+            var clusterHolder = kMedoids.learn(dataSet,num);
             if(clusterHolder.distance<distance){
                 distance = clusterHolder.distance;
                 cluster = clusterHolder;

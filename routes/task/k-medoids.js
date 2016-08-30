@@ -116,6 +116,9 @@ var learn = function(dataSet,num){
     //});
         console.log(localCenter);
         console.log('总计距离：'+localDistance);
+        localDistances.forEach(function(data){
+            console.log(data+' ');
+        });
         var clusters = [];
         localCenter.forEach(function(center,index){
             clusters.push({

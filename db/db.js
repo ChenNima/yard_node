@@ -11,7 +11,8 @@ exports.connect = function(){
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function (callback) {
         console.log("DB connected");
-        //kMedoidsJob.exec();
-        //kSplitJob.exec(6);
+        //kMedoidsJob.exec(10,10);
+        //kSplitJob.exec(7);
+        //kSplitJob.noKExec();
     });
 };
