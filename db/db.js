@@ -11,7 +11,14 @@ exports.connect = function(){
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function (callback) {
         console.log("DB connected");
-        //kMedoidsJob.exec(10,10);
+
+        for(var i=0;i<10;i++){
+            //kMedoidsJob.exec(7,7);
+            //kSplitJob.exec(7);
+            //kSplitJob.noKExec();
+        }
+
+        //kMedoidsJob.exec(7,7);
         //kSplitJob.exec(7);
         //kSplitJob.noKExec();
     });

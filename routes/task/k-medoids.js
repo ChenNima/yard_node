@@ -71,6 +71,7 @@ var getEuclidDis = function(pointA,pointB){
 };
 
 var learn = function(dataSet,num){
+
     var localLocations = [];
 
     var localCenter = [];
@@ -114,8 +115,8 @@ var learn = function(dataSet,num){
     //        spot.long = (spot.long/100)+121;
     //    });
     //});
-        console.log(localCenter);
-        console.log('总计距离：'+localDistance);
+    //    console.log(localCenter);
+        console.log('平均方差：'+(localDistance/num));
         localDistances.forEach(function(data){
             console.log(data+' ');
         });
@@ -127,6 +128,7 @@ var learn = function(dataSet,num){
                 distance:localDistances[index]
             });
         });
+
         return {
             clusters:clusters,
             distance: localDistance

@@ -29,17 +29,20 @@ exports.noKExec = function(){
     var threshold;
 
     dataPromise.then(function(dataSet){
+
+        var start = new Date();
+
         var totalDistance=0;
 
         dataNum = dataSet.length;
 
         currentClusters = dataSort(kMedoids.learn(dataSet,2).clusters);
 
-        var testDistance = (currentClusters[0].distance+currentClusters[1].distance)/7;
+        var testDistance = (currentClusters[0].distance+currentClusters[1].distance)/(2/0.7);
         console.log('方差阈值：'+testDistance);
         for(var i=0; currentClusters.length>0;i++){
             var deltaDisFlag = true;
-            threshold = Math.round((dataNum/(doneClusters.length+currentClusters.length))*0.2);
+            threshold = Math.round((dataNum/(doneClusters.length+currentClusters.length))*0.3);
             console.log('阈值：'+threshold);
             var originClusterHolder = currentClusters[0];
             currentClusters.splice(0,1);
@@ -66,18 +69,20 @@ exports.noKExec = function(){
             console.log('当前完成分类：'+doneClusters.length);
             console.log('待分类：'+currentClusters.length);
         }
+        console.log('总完成时间:'+(new Date() - start));
         var totalNum =0;
         doneClusters.forEach(function(cluster){
             totalNum+=cluster.cluster.length;
             totalDistance += cluster.distance;
             console.log('中心点:'+cluster.center.lat+','+cluster.center.long+' 集群点数: '+cluster.cluster.length+' 方差: '+cluster.distance);
         });
-        console.log('总方差:'+totalDistance);
+        console.log('全局平均方差:'+(totalDistance/doneClusters.length));
         console.log('剩余点数:'+totalNum);
     });
 };
 
 exports.exec = function(num){
+
     distance = Number.MAX_VALUE;
 
     currentClusters = {};
@@ -87,7 +92,7 @@ exports.exec = function(num){
     }
 
     dataPromise.then(function(dataSet){
-
+        var start = new Date();
         console.log('开始k-split,已获取数据');
 
         dataNum = dataSet.length;
@@ -109,7 +114,7 @@ exports.exec = function(num){
                     console.log(data.cluster.length+'个数据被添加');
                 }else{
                     dataNum -= data.cluster.length;
-                    threshold = Math.round(((dataNum)/num)*0.3);
+                    threshold = Math.round(((dataNum)/num)*0.4);
                     console.log('阈值更新:'+threshold);
                 }
                 if(data.cluster.length==0){
@@ -122,13 +127,13 @@ exports.exec = function(num){
             currentClusters = dataSort(currentClusters);
             console.log('当前学习次数：'+i);
         }
-
+        console.log('总完成时间:'+(new Date() - start));
         var totalDistance = 0;
         currentClusters.forEach(function(cluster){
             totalDistance += cluster.distance;
             console.log('中心点:'+cluster.center.lat+','+cluster.center.long+' 集群点数: '+cluster.cluster.length+' 方差: '+cluster.distance);
         });
-        console.log('总方差:'+totalDistance);
+        console.log('全局平均方差:'+(totalDistance/num));
         console.log('剩余点数:'+dataNum);
 
     });
