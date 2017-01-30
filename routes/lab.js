@@ -16,8 +16,10 @@ var labSchema = new mongoose.Schema({
 });
 
 var clusterSchema = new mongoose.Schema({
-    date: Date,
-    center:Array
+    code: Number,
+    center: labSchema,
+    cluster:[labSchema],
+    distance: Number
 });
 
 var cluster = mongoose.model('cluster',clusterSchema);
@@ -40,10 +42,12 @@ exports.getAllData = function(){
   return lab.find().exec();
 };
 
-exports.saveCluster = function(centers){
+exports.saveCluster = function(centerCluster, code){
     var newCluster = new cluster({
-        date:new Date(),
-        center:centers
+        code: code,
+        center: centerCluster.center,
+        cluster: centerCluster.cluster,
+        distance: centerCluster.distance
     });
     newCluster.save(function (err, cluster){});
 };

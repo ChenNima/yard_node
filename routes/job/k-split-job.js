@@ -42,7 +42,7 @@ exports.noKExec = function(){
         console.log('方差阈值：'+testDistance);
         for(var i=0; currentClusters.length>0;i++){
             var deltaDisFlag = true;
-            threshold = Math.round((dataNum/(doneClusters.length+currentClusters.length))*0.3);
+            threshold = Math.round((dataNum/(doneClusters.length+currentClusters.length))*0.25);
             console.log('阈值：'+threshold);
             var originClusterHolder = currentClusters[0];
             currentClusters.splice(0,1);
@@ -97,7 +97,7 @@ exports.exec = function(num){
 
         dataNum = dataSet.length;
 
-        var threshold = Math.round((dataNum/num)*0.3);
+        var threshold = Math.round((dataNum/num)*0.2);
         console.log(threshold);
         currentClusters = dataSort(kMedoids.learn(dataSet,2).clusters);
 
@@ -114,7 +114,7 @@ exports.exec = function(num){
                     console.log(data.cluster.length+'个数据被添加');
                 }else{
                     dataNum -= data.cluster.length;
-                    threshold = Math.round(((dataNum)/num)*0.4);
+                    threshold = Math.round(((dataNum)/num)*0.2);
                     console.log('阈值更新:'+threshold);
                 }
                 if(data.cluster.length==0){
@@ -129,8 +129,9 @@ exports.exec = function(num){
         }
         console.log('总完成时间:'+(new Date() - start));
         var totalDistance = 0;
-        currentClusters.forEach(function(cluster){
+        currentClusters.forEach(function(cluster, index){
             totalDistance += cluster.distance;
+            lab.saveCluster(cluster, index);
             console.log('中心点:'+cluster.center.lat+','+cluster.center.long+' 集群点数: '+cluster.cluster.length+' 方差: '+cluster.distance);
         });
         console.log('全局平均方差:'+(totalDistance/num));

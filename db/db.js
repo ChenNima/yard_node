@@ -13,14 +13,14 @@ exports.connect = function(){
     db.once('open', function (callback) {
         console.log("DB connected");
 
-        for(var i=0;i<10;i++){
-            //kMedoidsJob.exec(7,7);
-            //kSplitJob.exec(7);
-            //kSplitJob.noKExec();
-        }
+        //for(var i=0;i<10;i++){
+        //    kMedoidsJob.exec(7,7);
+        //    kSplitJob.exec(7);
+        //    kSplitJob.noKExec();
+        //}
 
-        //kMedoidsJob.exec(7,7);
-        //kSplitJob.exec(7);
+        //kMedoidsJob.exec(5,7);
+        //kSplitJob.exec(5);
         //kSplitJob.noKExec();
     });
 };

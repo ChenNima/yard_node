@@ -83,7 +83,8 @@ var learn = function(dataSet,num){
     var localDistance = Number.MAX_VALUE;
 
         dataSet.forEach(function(data){
-            localLocations.push(new loc(data.lat,data.long));
+            //localLocations.push(new loc(data.lat,data.long));
+            localLocations.push(data);
         });
         getRandomSpot(num,localLocations,localCenter,localClusters);
 
