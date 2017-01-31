@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var lab = require('../routes/lab');
 var kMedoids = require('../routes/task/k-medoids');
 var kMedoidsJob = require('../routes/job/k-medoids-job');
 var kSplitJob = require('../routes/job/k-split-job');
@@ -12,7 +13,7 @@ exports.connect = function(){
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function (callback) {
         console.log("DB connected");
-
+        //lab.groupDay();
         //for(var i=0;i<10;i++){
         //    kMedoidsJob.exec(7,7);
         //    kSplitJob.exec(7);
