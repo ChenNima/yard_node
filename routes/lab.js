@@ -30,11 +30,20 @@ var daySchema = new mongoose.Schema({
     cluster:[labSchema]
 });
 
+var dayClusterSchema = new mongoose.Schema({
+    code: Number,
+    center: daySchema,
+    cluster:[daySchema],
+    distance: Number
+});
+
 var cluster = mongoose.model('cluster',clusterSchema);
 
 var lab = mongoose.model('lab', labSchema);
 
 var day = mongoose.model('day', daySchema);
+
+var dayCluster = mongoose.model('dayCluster', dayClusterSchema);
 
 exports.post = function(req, res){
     var myLab =  req.body;
@@ -98,21 +107,21 @@ exports.groupDay = function(){
             });
 
             newDay.save();
-            //console.log(locArray);
         });
 
     });
+};
 
-    //lab.find().exec().then(function(dataSet) {
-    //    var group = _.groupBy(dataSet, function(data) {
-    //        var date = data.date;
-    //        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-    //    });
-    //
-    //    cluster.find().exec().then(function() {
-    //
-    //    });
-    //
-    //    console.log(group.length);
-    //});
+exports.getAllDays = function() {
+    return day.find().exec();
+};
+
+exports.saveDayCluster = function(centerCluster, code){
+    var newCluster = new dayCluster({
+        code: code,
+        center: centerCluster.center,
+        cluster: centerCluster.cluster,
+        distance: centerCluster.distance
+    });
+    newCluster.save(function (err, cluster){});
 };
