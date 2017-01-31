@@ -5,7 +5,6 @@ var kMedoids = require('../routes/task/k-medoids');
 var kMedoidsJob = require('../routes/job/k-medoids-job');
 var kSplitJob = require('../routes/job/k-split-job');
 
-
 exports.connect = function(){
     //mongoose.connect('mongodb://yifei.chen:FFff1122@ds021663.mlab.com:21663/mrc_mongo');
     mongoose.connect('mongodb://yifei:ffffff@mrchen.pub:27028');
